@@ -1,0 +1,38 @@
+# Produktions-Setup für Marios Hostinger-VPS (Traefik + root_default).
+# Deployment: deploy/deploy.sh ausführen — oder manuell:
+#   docker compose -f docker-compose.prod.yml up -d --build
+services:
+  pos1-cockpit:
+    build: .
+    image: pos1-cockpit:latest
+    container_name: pos1-cockpit
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - NODE_ENV=production
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pos1.rule=Host(`pos1.meosapp.de`)"
+      - "traefik.http.routers.pos1.entrypoints=websecure"
+      - "traefik.http.routers.pos1.tls.certresolver=myresolver"
+      - "traefik.http.services.pos1.loadbalancer.server.port=5317"
+      # Basic-Auth: die App hat bewusst kein eigenes Login — der Hash kommt aus .env
+      - "traefik.http.routers.pos1.middlewares=pos1-auth"
+      - "traefik.http.middlewares.pos1-auth.basicauth.users=${POS1_BASIC_AUTH}"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:5317/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    volumes:
+      - pos1-data:/data
+    networks:
+      - root_default
+
+volumes:
+  pos1-data:
+
+networks:
+  root_default:
+    external: true

@@ -53,20 +53,46 @@ cd backend && npm start
 Entwicklung mit Hot-Reload: `npm run dev` im `backend/` **und** im `frontend/` (Vite-Devserver auf
 Port 5173 proxyt `/api` zum Backend).
 
-## Deployment (VPS, Docker)
+## Deployment auf dem Hostinger-VPS (empfohlen)
+
+Ziel: **https://pos1.meosapp.de** — hinter Traefik mit automatischem SSL und Basic-Auth.
+
+**Einmalig:** Im Hostinger-DNS-Panel für meosapp.de einen A-Record anlegen:
+`pos1` → `31.97.122.6` (Propagation ~5–15 Min).
+
+**Dann ein Befehl** von deinem Rechner (Git Bash/WSL, SSH-Zugang zum VPS vorausgesetzt),
+ausgeführt im Repo-Verzeichnis:
+
+```bash
+bash pos1-cockpit/deploy/deploy.sh
+```
+
+Das Skript lädt den Quellcode auf den VPS, baut das Image dort, startet den Container
+mit Traefik-Labels (`root_default`-Netz, certresolver `myresolver`, Port 5317) und prüft
+den Healthcheck. Beim Erst-Deploy wird ein **Basic-Auth-Passwort generiert und einmalig
+angezeigt** — notieren! (Ändern: `bash pos1-cockpit/deploy/set-password.sh`.)
+
+DataForSEO-Live-Modus aktivieren:
+
+```bash
+ssh root@31.97.122.6
+nano /opt/pos1-cockpit/.env        # DATAFORSEO_LOGIN + DATAFORSEO_PASSWORD eintragen
+cd /opt/pos1-cockpit && docker compose -f docker-compose.prod.yml up -d
+```
+
+Re-Deploy nach Code-Änderungen: einfach `deploy.sh` erneut ausführen — die `.env` und die
+SQLite-Daten (Volume `pos1-data`) bleiben erhalten.
+
+### Alternativ: generisches Docker-Setup (ohne Traefik)
 
 ```bash
 cd pos1-cockpit
-cp .env.example .env   # Credentials eintragen
-docker compose up -d --build
-# → http://<server>:5317
+cp .env.example .env
+docker compose up -d --build       # → http://<server>:5317, ungeschützt!
 ```
 
-Die SQLite-Datenbank liegt im Volume `pos1-data` und überlebt Container-Neustarts.
-Danach wie gewohnt per Reverse-Proxy (z. B. nginx/Traefik) eine Subdomain aufschalten.
-
-**Wichtig:** Die App hat keine eingebaute Authentifizierung — nicht ungeschützt öffentlich machen
-(Reverse-Proxy mit Basic-Auth oder VPN/Zugriffsbeschränkung vorschalten).
+**Wichtig:** Die App hat keine eingebaute Authentifizierung — nur die Traefik-Variante
+oben bringt Basic-Auth mit. Die generische Variante nie ungeschützt öffentlich machen.
 
 ## Bedienung — empfohlener Rhythmus
 

@@ -15,6 +15,11 @@ import actionsRouter from './routes/actions.js';
 const app = express();
 app.use(express.json({ limit: '1mb' }));
 
+// Healthcheck für Docker/Traefik
+app.get('/health', (_req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // API-Routen
 app.use('/api', overviewRouter);
 app.use('/api/domains', domainsRouter);
