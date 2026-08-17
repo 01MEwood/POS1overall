@@ -1,4 +1,6 @@
 import * as cheerio from 'cheerio';
+import dns from 'node:dns/promises';
+import net from 'node:net';
 import { fetch as undiciFetch, EnvHttpProxyAgent } from 'undici';
 import config from '../config.js';
 import { log } from '../util.js';
@@ -6,6 +8,49 @@ import { log } from '../util.js';
 // Respektiert HTTPS_PROXY/HTTP_PROXY/NO_PROXY, falls gesetzt (z. B. Sandbox) —
 // ohne Proxy-Variablen verhält sich der Agent wie eine Direktverbindung.
 const dispatcher = new EnvHttpProxyAgent();
+
+function isPrivateIp(ip) {
+  // IPv4-mapped IPv6 (::ffff:10.0.0.1) auf den eingebetteten IPv4-Teil reduzieren
+  const mapped = ip.toLowerCase().match(/^::ffff:(\d+\.\d+\.\d+\.\d+)$/);
+  if (mapped) ip = mapped[1];
+  if (net.isIPv4(ip)) {
+    const [a, b] = ip.split('.').map(Number);
+    return (
+      a === 0 || a === 10 || a === 127 || a >= 224 ||
+      (a === 172 && b >= 16 && b <= 31) ||
+      (a === 192 && b === 168) ||
+      (a === 169 && b === 254) ||
+      (a === 100 && b >= 64 && b <= 127)
+    );
+  }
+  const low = ip.toLowerCase();
+  return low === '::' || low === '::1' || low.startsWith('fc') || low.startsWith('fd') || low.startsWith('fe80');
+}
+
+/**
+ * SSRF-Schutz: Scan nur für öffentlich auflösbare Hosts. Blockt interne
+ * Hostnamen-Muster und Namen, die auf private/reservierte IPs auflösen
+ * (z. B. Wildcard-DNS wie 127.0.0.1.nip.io). Hinweis: Redirects und
+ * DNS-Rebinding sind damit nicht vollständig abgedeckt — die App ist für
+ * den internen Betrieb hinter Reverse-Proxy/Auth gedacht.
+ */
+async function assertPublicHost(host) {
+  if (/\.(local|localhost|internal|corp|lan|home|intern)$/i.test(host)) {
+    throw new Error(`Interner Hostname „${host}" — Scan abgelehnt`);
+  }
+  let addrs;
+  try {
+    addrs = await dns.lookup(host, { all: true, verbatim: true });
+  } catch {
+    throw new Error(`DNS-Auflösung für ${host} fehlgeschlagen`);
+  }
+  if (!addrs.length) throw new Error(`Keine IP-Adresse für ${host} gefunden`);
+  for (const { address } of addrs) {
+    if (isPrivateIp(address)) {
+      throw new Error(`${host} löst auf eine interne/reservierte IP (${address}) auf — Scan abgelehnt`);
+    }
+  }
+}
 
 async function fetchUrl(url, { asText = true } = {}) {
   const controller = new AbortController();
@@ -39,11 +84,12 @@ async function fetchUrl(url, { asText = true } = {}) {
   }
 }
 
-/** robots.txt in User-Agent-Gruppen zerlegen: { 'gptbot': ['/pfad', ...], '*': [...] } */
+/** robots.txt in User-Agent-Gruppen zerlegen: { 'gptbot': {disallow: [...], allow: [...]}, '*': {...} } */
 function parseRobots(text) {
   const groups = {};
   let currentAgents = [];
   let lastWasAgent = false;
+  const ensure = (a) => (groups[a] = groups[a] || { disallow: [], allow: [] });
   for (const rawLine of (text || '').split(/\r?\n/)) {
     const line = rawLine.replace(/#.*$/, '').trim();
     if (!line) continue;
@@ -53,14 +99,11 @@ function parseRobots(text) {
     if (key === 'user-agent') {
       if (!lastWasAgent) currentAgents = [];
       currentAgents.push(value.toLowerCase());
-      for (const a of currentAgents) groups[a] = groups[a] || [];
+      currentAgents.forEach(ensure);
       lastWasAgent = true;
     } else {
-      if (key === 'disallow') {
-        for (const a of currentAgents) {
-          groups[a] = groups[a] || [];
-          groups[a].push(value);
-        }
+      if (key === 'disallow' || key === 'allow') {
+        for (const a of currentAgents) ensure(a)[key].push(value);
       }
       lastWasAgent = false;
     }
@@ -68,9 +111,12 @@ function parseRobots(text) {
   return groups;
 }
 
+/** Vollsperre erkennen: Disallow "/" oder "/*" (Wildcard-Semantik), sofern kein Allow sie übersteuert. */
 function isBotBlocked(groups, bot) {
-  const rules = groups[bot.toLowerCase()] ?? groups['*'] ?? [];
-  return rules.some((r) => r === '/');
+  const rules = groups[bot.toLowerCase()] ?? groups['*'] ?? { disallow: [], allow: [] };
+  const fullBlock = rules.disallow.some((r) => r === '/' || r === '/*');
+  const allowOverride = rules.allow.some((r) => r === '/' || r === '/*');
+  return fullBlock && !allowOverride;
 }
 
 /** Alle @type-Werte aus JSON-LD-Blöcken einsammeln (inkl. @graph, Arrays, Verschachtelung). */
@@ -98,6 +144,8 @@ export async function scanDomain(host) {
   const checks = [];
   const add = (pillar, key, label, status, value, recommendation, weight = 1) =>
     checks.push({ pillar, check_key: key, label, status, value: value == null ? null : String(value), recommendation, weight });
+
+  await assertPublicHost(host);
 
   const baseUrl = `https://${host}`;
   const page = await fetchUrl(`${baseUrl}/`);

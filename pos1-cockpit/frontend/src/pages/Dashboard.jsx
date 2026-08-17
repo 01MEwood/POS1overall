@@ -1,5 +1,5 @@
 import React from 'react';
-import { api, PILLARS, DOMAIN_COLORS, fmtDate, fmtNum } from '../api.js';
+import { api, PILLARS, DOMAIN_COLORS, fmtDate } from '../api.js';
 import { Card, Pill, SourceTag, Delta, ErrorNote, Empty, Spinner, useData } from '../components/ui.jsx';
 import ScoreRing from '../components/ScoreRing.jsx';
 import PillarBars from '../components/PillarBars.jsx';

@@ -199,7 +199,8 @@ export default function Brands() {
           </div>
           <div className="grid cols-2 section-gap">
             <Card title={`Markenprofil bearbeiten: ${active.name}`}>
-              <BrandEditor brand={active} onSaved={reload} />
+              {/* key erzwingt Remount beim Markenwechsel — sonst bleibt der Formular-State der vorherigen Marke stehen */}
+              <BrandEditor key={active.id} brand={active} onSaved={reload} />
             </Card>
             <Card title="Markenschutz & Hinweise">
               <p className="small" style={{ color: 'var(--ink-2)' }}>

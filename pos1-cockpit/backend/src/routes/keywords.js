@@ -67,13 +67,17 @@ router.delete('/:id', asyncHandler(async (req, res) => {
 router.post('/refresh', asyncHandler(async (req, res) => {
   const db = getDb();
   const domainId = req.body?.domainId ? Number(req.body.domainId) : null;
+  // Rotation nach Aktualität: zuletzt geprüfte Keywords kommen zuletzt dran —
+  // bei >50 Keywords arbeiten wiederholte Aufrufe alle reihum ab.
   const keywords = db
     .prepare(
       `SELECT k.*, d.host, d.is_own FROM keywords k JOIN domains d ON d.id = k.domain_id
-       ${domainId ? 'WHERE k.domain_id = @domainId' : ''} ORDER BY k.id LIMIT ${MAX_REFRESH_BATCH}`
+       ${domainId ? 'WHERE k.domain_id = @domainId' : ''}
+       ORDER BY COALESCE((SELECT MAX(r.checked_at) FROM rankings r WHERE r.keyword_id = k.id), '') ASC, k.id
+       LIMIT ${MAX_REFRESH_BATCH}`
     )
     .all(domainId ? { domainId } : {});
-  if (!keywords.length) return res.json({ refreshed: 0, errors: [] });
+  if (!keywords.length) return res.json({ refreshed: 0, total: 0, errors: [] });
 
   const errors = [];
   const insertRanking = db.prepare(

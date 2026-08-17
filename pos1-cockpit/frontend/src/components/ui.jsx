@@ -75,11 +75,19 @@ export function Spinner() {
 /** Kleiner Daten-Hook: lädt per fetcher, liefert {data, error, loading, reload}. */
 export function useData(fetcher, deps = []) {
   const [state, setState] = React.useState({ data: null, error: null, loading: true });
+  // Versionszähler gegen Race-Conditions: nur die Antwort des letzten Aufrufs
+  // darf den State setzen (sonst überschreibt eine langsame alte Antwort die neue Auswahl).
+  const versionRef = React.useRef(0);
   const load = React.useCallback(() => {
+    const version = ++versionRef.current;
     setState((s) => ({ ...s, loading: true, error: null }));
     fetcher()
-      .then((data) => setState({ data, error: null, loading: false }))
-      .catch((error) => setState({ data: null, error, loading: false }));
+      .then((data) => {
+        if (versionRef.current === version) setState({ data, error: null, loading: false });
+      })
+      .catch((error) => {
+        if (versionRef.current === version) setState({ data: null, error, loading: false });
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
   React.useEffect(() => {

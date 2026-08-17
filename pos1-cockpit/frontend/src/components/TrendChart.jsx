@@ -21,7 +21,15 @@ export default function TrendChart({ series, height = 200, invertY = false, yMax
     return () => ro.disconnect();
   }, []);
 
-  const valid = (series || []).filter((s) => s.points?.length);
+  // Punkte je x-Wert deduplizieren (letzter gewinnt = neueste Messung des Tages)
+  // und Serien ohne einen einzigen Messwert aussortieren (sonst NaN-Koordinaten).
+  const valid = (series || [])
+    .map((s) => {
+      const byX = new Map();
+      for (const p of s.points || []) if (p.y != null) byX.set(p.x, p);
+      return { ...s, points: [...byX.values()] };
+    })
+    .filter((s) => s.points.length > 0);
   if (!valid.length) return <div className="empty">Noch keine Verlaufsdaten — erste Messung ausführen.</div>;
 
   // Gemeinsame X-Achse aus allen Zeitpunkten
@@ -30,7 +38,7 @@ export default function TrendChart({ series, height = 200, invertY = false, yMax
   const w = width - pad.l - pad.r;
   const h = height - pad.t - pad.b;
 
-  const allY = valid.flatMap((s) => s.points.map((p) => p.y)).filter((y) => y != null);
+  const allY = valid.flatMap((s) => s.points.map((p) => p.y));
   let yMin = Math.min(...allY);
   let yTop = yMax != null ? yMax : Math.max(...allY);
   if (yMin === yTop) { yMin = Math.max(0, yMin - 5); yTop = yTop + 5; }
@@ -88,7 +96,7 @@ export default function TrendChart({ series, height = 200, invertY = false, yMax
           <line x1={hover.px} x2={hover.px} y1={pad.t} y2={height - pad.b} stroke="var(--baseline)" strokeWidth="1" />
         )}
         {valid.map((s) => {
-          const pts = s.points.filter((p) => p.y != null);
+          const pts = s.points;
           const d = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${xPos(p.x)},${yPos(p.y)}`).join(' ');
           return (
             <g key={s.name}>

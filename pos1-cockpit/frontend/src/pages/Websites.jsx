@@ -1,6 +1,6 @@
 import React from 'react';
 import { api, PILLARS, fmtDate, fmtNum } from '../api.js';
-import { Card, StatusPill, SourceTag, ErrorNote, Empty, Spinner, useData, Pill } from '../components/ui.jsx';
+import { Card, StatusPill, SourceTag, ErrorNote, Empty, Spinner, useData } from '../components/ui.jsx';
 import ScoreRing from '../components/ScoreRing.jsx';
 import PillarBars from '../components/PillarBars.jsx';
 
@@ -78,7 +78,7 @@ function DomainDetail({ domain, onChanged }) {
             <div className="small muted" style={{ marginBottom: 12 }}>
               Backlinks: <strong className="delta-flat">{fmtNum(lastBacklink.backlinks)}</strong> ·
               verweisende Domains: <strong className="delta-flat">{fmtNum(lastBacklink.referring_domains)}</strong> ·
-              Domain-Rank: <strong className="delta-flat">{lastBacklink.domain_rank ?? '—'}</strong>{' '}
+              Domain-Rank (0–100): <strong className="delta-flat">{lastBacklink.domain_rank ?? '—'}</strong>{' '}
               <SourceTag source={lastBacklink.source} />
             </div>
           )}

@@ -81,9 +81,13 @@ export async function serpCheck(keyword, host, isOwn = true) {
   const items = result?.[0]?.items || [];
   const organic = items.filter((i) => i.type === 'organic');
   const hit = organic.find((i) => hostMatches(i.domain, host));
-  const featureTypes = new Set(items.map((i) => i.type).filter((t) => t !== 'organic'));
+  // 'paid' ist kein SERP-Feature; der regular-Endpoint liefert nur organic/paid/
+  // featured_snippet/local_pack — weitere Features (PAA etc.) erfordern den advanced-Endpoint.
+  const featureTypes = new Set(items.map((i) => i.type).filter((t) => t !== 'organic' && t !== 'paid'));
   return {
-    position: hit ? hit.rank_absolute ?? hit.rank_group ?? null : null,
+    // rank_group = Position innerhalb der organischen Treffer (konsistent zur Demo-Semantik
+    // und zu den positionToScore-Schwellen); rank_absolute zählt Ads/Features mit.
+    position: hit ? hit.rank_group ?? hit.rank_absolute ?? null : null,
     url: hit?.url || null,
     serpFeatures: [...featureTypes].slice(0, 6).join(','),
     source: 'dataforseo',
@@ -94,6 +98,16 @@ export async function serpCheck(keyword, host, isOwn = true) {
  * Suchvolumen/CPC/Wettbewerb für bis zu 1000 Keywords (Google Ads Daten, DE).
  * → Map keyword(lowercase) → { search_volume, cpc, competition, source }
  */
+/** Google-Ads-API akzeptiert bestimmte Sonderzeichen nicht — ein ungültiges Keyword würde den ganzen Batch kippen. */
+function sanitizeForGoogleAds(keyword) {
+  return keyword
+    .toLowerCase()
+    .replace(/[!?"'`@%^()={}|<>[\]\\,;:*~#§$&+°]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 80);
+}
+
 export async function searchVolume(keywords) {
   const map = new Map();
   if (!keywords.length) return map;
@@ -101,20 +115,32 @@ export async function searchVolume(keywords) {
     for (const kw of keywords) map.set(kw.toLowerCase(), { ...demoSearchVolume(kw), source: 'demo' });
     return map;
   }
+  // sanitisiert → Original-Keywords (mehrere Originale können auf dasselbe sanitisierte Keyword fallen)
+  const bySanitized = new Map();
+  for (const kw of keywords) {
+    const clean = sanitizeForGoogleAds(kw);
+    if (!clean) continue;
+    if (!bySanitized.has(clean)) bySanitized.set(clean, []);
+    bySanitized.get(clean).push(kw.toLowerCase());
+  }
+  if (!bySanitized.size) return map;
   const result = await dfsPost('/v3/keywords_data/google_ads/search_volume/live', [
     {
-      keywords: keywords.slice(0, 1000),
+      keywords: [...bySanitized.keys()].slice(0, 1000),
       location_code: config.dataforseo.locationCode,
       language_code: config.dataforseo.languageCode,
     },
   ]);
   for (const row of result || []) {
-    map.set((row.keyword || '').toLowerCase(), {
-      search_volume: row.search_volume ?? null,
-      cpc: row.cpc ?? null,
-      competition: row.competition_index != null ? row.competition_index / 100 : row.competition ?? null,
-      source: 'dataforseo',
-    });
+    const originals = bySanitized.get((row.keyword || '').toLowerCase()) || [];
+    for (const original of originals) {
+      map.set(original, {
+        search_volume: row.search_volume ?? null,
+        cpc: row.cpc ?? null,
+        competition: row.competition_index != null ? row.competition_index / 100 : row.competition ?? null,
+        source: 'dataforseo',
+      });
+    }
   }
   return map;
 }
@@ -131,7 +157,8 @@ export async function backlinksSummary(host) {
   return {
     backlinks: row?.backlinks ?? null,
     referring_domains: row?.referring_domains ?? null,
-    domain_rank: row?.rank ?? null,
+    // DataForSEO-Rank ist 0–1000 — auf die 0–100-Skala der App normalisieren (konsistent zum Demo-Modus)
+    domain_rank: row?.rank != null ? Math.round(row.rank / 10) : null,
     source: 'dataforseo',
   };
 }

@@ -35,16 +35,12 @@ export const PILLARS = [
 /* Serien-Farben für Domain-Vergleiche (fixe Slots 1–3, all-pairs-validiert) */
 export const DOMAIN_COLORS = ['#3987e5', '#d95926', '#199e70'];
 
-export function scoreTone(score) {
-  if (score == null) return 'info';
-  if (score >= 75) return 'pass';
-  if (score >= 50) return 'warn';
-  return 'fail';
-}
-
 export function fmtDate(iso) {
   if (!iso) return '—';
-  const d = new Date(iso.includes('T') || iso.includes(' ') ? iso.replace(' ', 'T') + 'Z' : iso);
+  let s = String(iso).replace(' ', 'T');
+  // SQLite datetime('now') liefert UTC ohne Zeitzonen-Suffix — nur dann 'Z' ergänzen
+  if (s.includes('T') && !/([zZ]|[+-]\d{2}:?\d{2})$/.test(s)) s += 'Z';
+  const d = new Date(s);
   if (Number.isNaN(d.getTime())) return iso;
   return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
