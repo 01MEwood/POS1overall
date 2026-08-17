@@ -1,0 +1,15 @@
+services:
+  pos1-cockpit:
+    build: .
+    container_name: pos1-cockpit
+    restart: unless-stopped
+    ports:
+      - "5317:5317"
+    environment:
+      - DATAFORSEO_LOGIN=${DATAFORSEO_LOGIN:-}
+      - DATAFORSEO_PASSWORD=${DATAFORSEO_PASSWORD:-}
+    volumes:
+      - pos1-data:/data
+
+volumes:
+  pos1-data:

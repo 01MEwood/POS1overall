@@ -1,0 +1,22 @@
+{
+  "name": "pos1-cockpit-backend",
+  "version": "1.0.0",
+  "description": "POS1 Cockpit — Website- & Marken-Benchmark für Schreinerhelden, Finverk und IHR-Möbel-Schreiner",
+  "private": true,
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "smoke": "node test/smoke.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "cheerio": "^1.0.0",
+    "express": "^4.21.2",
+    "undici": "^7.3.0"
+  }
+}
