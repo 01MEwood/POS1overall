@@ -1,0 +1,152 @@
+/* ProduktPass — klares, ruhiges Werkstatt-Design */
+:root {
+  --akzent: #2f5d3a;
+  --akzent-hell: #eaf2ec;
+  --tinte: #22301f;
+  --grau: #5c6a5c;
+  --linie: #d8e0d6;
+  --papier: #fbfaf7;
+  --karte: #ffffff;
+  --warn-bg: #fdf3e4;
+  --warn-rand: #c77b28;
+  --fehler: #a83232;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: var(--papier);
+  color: var(--tinte);
+  line-height: 1.5;
+}
+
+.app { max-width: 980px; margin: 0 auto; padding: 20px 16px 48px; }
+
+/* ——— Kopf ——— */
+.app-kopf { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.app-marke { display: flex; gap: 12px; align-items: center; }
+.app-logo { font-size: 36px; }
+.app-marke h1 { margin: 0; font-size: 24px; letter-spacing: 0.5px; }
+.app-marke p { margin: 2px 0 0; color: var(--grau); font-size: 13px; }
+
+.schritte { display: flex; gap: 6px; flex-wrap: wrap; }
+.schritt {
+  border: 1px solid var(--linie);
+  background: var(--karte);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--grau);
+  display: flex; align-items: center; gap: 6px;
+}
+.schritt.aktiv { background: var(--akzent); border-color: var(--akzent); color: #fff; }
+.schritt:disabled { opacity: 0.5; cursor: not-allowed; }
+.schritt-nr {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: rgba(0, 0, 0, 0.08); font-size: 11px; font-weight: 700;
+}
+.schritt.aktiv .schritt-nr { background: rgba(255, 255, 255, 0.25); }
+
+.content-warnung {
+  background: var(--warn-bg); border: 1px solid var(--warn-rand);
+  border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 16px;
+}
+
+/* ——— Karten & Formulare ——— */
+.karte { background: var(--karte); border: 1px solid var(--linie); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+.karte h2 { margin: 0 0 6px; font-size: 18px; }
+.karte h3 { margin: 18px 0 8px; font-size: 14px; color: var(--akzent); text-transform: uppercase; letter-spacing: 1px; }
+.hinweis { color: var(--grau); font-size: 13.5px; margin: 0 0 14px; }
+.klein { color: var(--grau); font-size: 12px; font-weight: 400; }
+.fehler-text { color: var(--fehler); font-size: 13px; }
+
+.formular-raster { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px 16px; }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; }
+label input, label textarea {
+  font: inherit; font-weight: 400;
+  padding: 9px 10px; border: 1px solid var(--linie); border-radius: 8px; background: #fff;
+}
+label input:focus, label textarea:focus { outline: 2px solid var(--akzent); outline-offset: 0; border-color: var(--akzent); }
+.volle-breite { width: 100%; margin-top: 12px; }
+
+button {
+  font: inherit; font-weight: 600; cursor: pointer;
+  background: var(--akzent); color: #fff; border: 1px solid var(--akzent);
+  border-radius: 8px; padding: 10px 18px;
+}
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+button.sekundaer { background: #fff; color: var(--akzent); border-color: var(--linie); }
+button.sekundaer:hover:not(:disabled) { border-color: var(--akzent); }
+.link-knopf { background: none; border: none; color: var(--akzent); text-decoration: underline; padding: 0 0 0 8px; font-size: 13px; }
+.aktionen { margin-top: 18px; display: flex; gap: 10px; }
+.aktionen-rechts { display: flex; gap: 10px; }
+.zeile-zwischen { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+/* ——— Betriebsprofil ——— */
+.logo-zeile { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
+.logo-vorschau {
+  width: 140px; height: 84px; border: 2px dashed var(--linie); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  color: var(--grau); font-size: 12px; cursor: pointer; background: var(--papier); overflow: hidden;
+}
+.logo-vorschau img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.logo-aktionen { display: flex; flex-direction: column; gap: 8px; }
+
+/* ——— Produkttyp-Kacheln ——— */
+.typ-raster { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.typ-kachel {
+  background: #fff; color: var(--tinte); border: 1px solid var(--linie); border-radius: 10px;
+  padding: 12px 10px; text-align: left; display: flex; flex-direction: column; gap: 2px; font-weight: 400;
+}
+.typ-kachel:hover { border-color: var(--akzent); }
+.typ-kachel.aktiv { border: 2px solid var(--akzent); background: var(--akzent-hell); }
+.typ-icon { font-size: 22px; }
+.typ-label { font-weight: 700; font-size: 13.5px; }
+.typ-beschreibung { font-size: 11.5px; color: var(--grau); }
+
+/* ——— Foto ——— */
+.foto-zeile { margin-top: 12px; display: flex; gap: 12px; align-items: center; }
+.foto-vorschau { max-height: 90px; border-radius: 8px; border: 1px solid var(--linie); }
+
+/* ——— Bausteine ——— */
+.kategorie-block { margin-bottom: 6px; }
+.baustein { border: 1px solid var(--linie); border-radius: 8px; margin-bottom: 6px; background: #fff; }
+.baustein.aktiv { border-color: #b7c9b7; background: #fdfefd; }
+.baustein-kopf { display: flex; align-items: center; gap: 10px; padding: 8px 12px; }
+.baustein-kopf input[type='checkbox'] { width: 17px; height: 17px; accent-color: var(--akzent); flex-shrink: 0; }
+.baustein-titel {
+  background: none; border: none; color: var(--tinte); font-weight: 600; font-size: 14px;
+  text-align: left; flex: 1; padding: 2px 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.baustein-pfeil { color: var(--grau); font-size: 12px; }
+.marke-angepasst { background: var(--akzent-hell); color: var(--akzent); font-size: 11px; padding: 1px 8px; border-radius: 999px; }
+.baustein-detail { padding: 0 12px 12px 39px; }
+.baustein-detail textarea { width: 100%; font-size: 13px; line-height: 1.5; }
+.baustein-detail-fuss { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
+.rechtsbezug { font-size: 12px; color: var(--grau); font-style: italic; margin: 4px 0 8px; }
+
+/* ——— Prüfung & Export ——— */
+.pruef-liste { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 8px; }
+.pruef-liste li { border-radius: 8px; padding: 10px 12px; font-size: 13.5px; }
+.pruef-fehler { background: #fbeaea; border: 1px solid #dfb0b0; }
+.pruef-warnung { background: var(--warn-bg); border: 1px solid #e4c48f; }
+.pruef-ok { background: var(--akzent-hell); border: 1px solid #b7c9b7; border-radius: 8px; padding: 10px 12px; font-size: 13.5px; }
+
+.zusammenfassung {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px;
+  border-top: 1px solid var(--linie); border-bottom: 1px solid var(--linie); padding: 14px 0; margin: 16px 0;
+}
+.zusammenfassung div { display: flex; flex-direction: column; gap: 2px; }
+.schalter { flex-direction: row; align-items: center; gap: 10px; font-weight: 400; font-size: 13.5px; }
+.schalter input { width: 17px; height: 17px; accent-color: var(--akzent); }
+
+/* ——— Fuß ——— */
+.app-fuss {
+  margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--linie);
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  color: var(--grau); font-size: 12px;
+}
