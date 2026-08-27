@@ -84,20 +84,24 @@ Wann geprüft werden muss (GPSR-Leitlinien, neues ProdHaftG 12/2026, EUDR, neue 
 ESPR/Digitaler Produktpass für Möbel ~2029): siehe `docs/inhalte-aktuell-halten.md`.
 Die App warnt automatisch, wenn `CONTENT_STAND` älter als 12 Monate ist.
 
-## Deployment
+## Deployment (produktpass.meosapp.de)
 
-`npm run build` erzeugt statische Dateien in `dist/` — hostbar auf jedem Webspace,
-z. B. als Unterordner der Betriebs-Website, auf dem eigenen VPS (nginx) oder lokal
-(Doppelklick auf `dist/index.html` funktioniert wegen relativer Modulpfade nicht —
-kleinen Webserver nutzen: `npm run preview`).
+Einmalig: Im Hostinger-DNS-Panel für meosapp.de einen **A-Record `produktpass` → `31.97.122.6`** anlegen.
 
-```nginx
-# nginx-Beispiel (VPS)
-location /produktpass/ {
-  alias /var/www/produktpass/dist/;
-  try_files $uri $uri/ /produktpass/index.html;
-}
+Dann Bundle bauen und einspielen:
+
+```bash
+# Auf dem eigenen Rechner (im Ordner produktinfo-app):
+bash scripts/erzeuge-deploy-bundle.sh          # → produktpass-deploy.tar.gz
+scp produktpass-deploy.tar.gz root@31.97.122.6:/opt/
+ssh root@31.97.122.6 'cd /opt && tar xzf produktpass-deploy.tar.gz && cd produktpass && bash install.sh'
 ```
+
+`deploy/install.sh` erkennt automatisch den laufenden Reverse-Proxy (**Traefik**,
+**nginx-proxy**, **Nginx Proxy Manager** oder Host-/Container-nginx), erzeugt die passende
+`docker-compose.yml` (nginx:alpine, statisch, kein Build auf dem Server), startet den
+Container, testet und meldet den Live-Status. Erneut ausführen = Update.
+Für lokale Vorschau ohne Server: `npm run preview`.
 
 ## Bekannte Grenzen (v1)
 
