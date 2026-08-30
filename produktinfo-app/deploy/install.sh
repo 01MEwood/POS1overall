@@ -153,7 +153,7 @@ docker exec "$APP" nginx -t >/dev/null && sag "nginx-Konfiguration OK"
 # ——— Nacharbeiten je Modus ————————————————————————————————————————
 case "$MODUS" in
   npm)
-    warn "Nginx Proxy Manager erkannt: Bitte einmalig im NPM-Webinterface einen Proxy Host anlegen:"
+    warn "Nginx Proxy Manager erkannt. Falls unten kein LIVE steht: einmalig im NPM-Webinterface einen Proxy Host anlegen:"
     echo "   Domain: ${DOMAIN} → Forward Hostname: ${APP}, Port: 80, Websockets an, SSL: Let's-Encrypt-Zertifikat anfordern."
     ;;
   host-nginx)
@@ -184,7 +184,7 @@ esac
 
 # ——— Smoke-Test ————————————————————————————————————————————————————
 sleep 2
-if docker exec "$APP" wget -q -O /dev/null http://localhost/; then
+if docker exec "$APP" wget -q -O /dev/null http://127.0.0.1/; then
   sag "Container liefert die App aus."
 else
   warn "Container antwortet nicht wie erwartet — Logs: docker logs ${APP}"
