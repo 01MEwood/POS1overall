@@ -96,6 +96,8 @@ button.sekundaer:hover:not(:disabled) { border-color: var(--akzent); }
 .logo-vorschau img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .logo-aktionen { display: flex; flex-direction: column; gap: 8px; }
 
+.profil-datei { margin-top: 18px; padding: 14px; border: 1px dashed var(--linie); border-radius: 10px; background: var(--papier); }
+
 /* ——— Produkttyp-Kacheln ——— */
 .typ-raster { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
 .typ-kachel {

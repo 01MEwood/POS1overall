@@ -62,19 +62,28 @@ try {
   await page.getByRole('button', { name: /Weiter: PDF erzeugen/ }).click();
 
   // — Schritt 3: Prüfung + Export —
-  await page.getByText('Prüfen und PDF erzeugen').waitFor();
+  await page.getByText('Prüfen und Dokument erzeugen').waitFor();
   pruefe(await page.getByText(/übergabefertig|Warnung|⚠️|✅/).first().isVisible(), 'Prüfergebnis sichtbar');
   await page.screenshot({ path: join(shotDir, '3-export.png') });
-
-  const downloadPromise = page.waitForEvent('download', { timeout: 60_000 });
-  await page.getByRole('button', { name: /Individuelles PDF erzeugen/ }).click();
-  const download = await downloadPromise;
-  const pfad = join(shotDir, download.suggestedFilename());
-  await download.saveAs(pfad);
   const { readFileSync } = await import('node:fs');
-  const bytes = readFileSync(pfad);
-  pruefe(bytes.subarray(0, 5).toString() === '%PDF-' && bytes.length > 10_000,
-    `PDF heruntergeladen: ${download.suggestedFilename()} (${Math.round(bytes.length / 1024)} kB)`);
+
+  const pdfPromise = page.waitForEvent('download', { timeout: 60_000 });
+  await page.getByRole('button', { name: /Individuelles PDF erzeugen/ }).click();
+  const pdfDownload = await pdfPromise;
+  const pdfPfad = join(shotDir, pdfDownload.suggestedFilename());
+  await pdfDownload.saveAs(pdfPfad);
+  const pdfBytes = readFileSync(pdfPfad);
+  pruefe(pdfBytes.subarray(0, 5).toString() === '%PDF-' && pdfBytes.length > 10_000,
+    `PDF heruntergeladen: ${pdfDownload.suggestedFilename()} (${Math.round(pdfBytes.length / 1024)} kB)`);
+
+  const docxPromise = page.waitForEvent('download', { timeout: 60_000 });
+  await page.getByRole('button', { name: /Word \(.docx\)/ }).click();
+  const docxDownload = await docxPromise;
+  const docxPfad = join(shotDir, docxDownload.suggestedFilename());
+  await docxDownload.saveAs(docxPfad);
+  const docxBytes = readFileSync(docxPfad);
+  pruefe(docxBytes[0] === 0x50 && docxBytes[1] === 0x4b && docxBytes.length > 10_000,
+    `Word heruntergeladen: ${docxDownload.suggestedFilename()} (${Math.round(docxBytes.length / 1024)} kB)`);
   await page.screenshot({ path: join(shotDir, '4-fertig.png') });
 
   // — Persistenz: Reload behält Betrieb (localStorage) —

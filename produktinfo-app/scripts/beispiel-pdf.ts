@@ -11,7 +11,8 @@ import { join } from 'node:path';
 import { createElement } from 'react';
 import { renderToBuffer } from '@react-pdf/renderer';
 import { ProduktinfoPdf } from '../src/pdf/ProduktinfoPdf';
-import { pdfDateiname } from '../src/pdf/dateiname';
+import { dokumentDateiname, pdfDateiname } from '../src/pdf/dateiname';
+import { erzeugeDocxBuffer } from '../src/word/ProduktinfoDocx';
 import { vorauswahlFuer } from '../src/content';
 import { pruefeVorExport, hatFehler } from '../src/lib/pruefung';
 import type { Auswahl, Betrieb, Projekt } from '../src/types';
@@ -94,6 +95,18 @@ for (const beispiel of beispiele) {
   const datei = join(zielordner, pdfDateiname(beispiel.projekt));
   writeFileSync(datei, buffer);
   console.log(`✓ ${beispiel.name}: ${auswahl.bausteinIds.length} Bausteine → ${datei} (${Math.round(buffer.length / 1024)} kB)`);
+
+  // Zusätzlich die Word-Fassung erzeugen (Smoke-Test für den Docx-Export).
+  const docx = await erzeugeDocxBuffer(betrieb, beispiel.projekt, auswahl);
+  // DOCX = ZIP-Container, beginnt mit "PK"
+  if (docx.length < 10_000 || docx[0] !== 0x50 || docx[1] !== 0x4b) {
+    console.error(`✗ ${beispiel.name}: DOCX unplausibel (${docx.length} Bytes)`);
+    fehler++;
+    continue;
+  }
+  const docxDatei = join(zielordner, dokumentDateiname(beispiel.projekt, 'docx'));
+  writeFileSync(docxDatei, docx);
+  console.log(`✓ ${beispiel.name} (Word): → ${docxDatei} (${Math.round(docx.length / 1024)} kB)`);
 }
 
 if (fehler > 0) {

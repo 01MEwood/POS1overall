@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import type { Betrieb } from '../types';
 import { dateiZuDataUrl } from '../lib/bild';
+import { profilAlsDatei, profilAusDatei } from '../lib/profilDatei';
 
 interface Props {
   betrieb: Betrieb;
@@ -14,7 +15,38 @@ interface Props {
  */
 export function BetriebForm({ betrieb, onChange, onFertig }: Props) {
   const dateiRef = useRef<HTMLInputElement>(null);
+  const profilRef = useRef<HTMLInputElement>(null);
   const [fehler, setFehler] = useState('');
+  const [profilInfo, setProfilInfo] = useState('');
+
+  function profilSichern() {
+    const { dateiname, inhalt } = profilAlsDatei(betrieb);
+    const url = URL.createObjectURL(new Blob([inhalt], { type: 'application/json' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = dateiname;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10_000);
+    setProfilInfo(`Profil gesichert als ${dateiname} — Datei aufbewahren (USB-Stick, Betriebs-Ablage) und auf anderen Geräten über „Profil laden“ einlesen.`);
+  }
+
+  async function profilLaden(e: React.ChangeEvent<HTMLInputElement>) {
+    const datei = e.target.files?.[0];
+    if (!datei) return;
+    setFehler('');
+    setProfilInfo('');
+    try {
+      const inhalt = await datei.text();
+      onChange(profilAusDatei(inhalt));
+      setProfilInfo('Profil geladen ✔ — Daten unten prüfen und „Speichern und weiter“ klicken.');
+    } catch (err) {
+      setFehler(err instanceof Error ? err.message : 'Profil-Datei konnte nicht gelesen werden.');
+    } finally {
+      e.target.value = '';
+    }
+  }
 
   const feld = (key: keyof Betrieb) => (e: React.ChangeEvent<HTMLInputElement>) =>
     onChange({ ...betrieb, [key]: e.target.value });
@@ -71,6 +103,23 @@ export function BetriebForm({ betrieb, onChange, onFertig }: Props) {
         <label>E-Mail * <span className="klein">(GPSR: elektronische Adresse)</span><input type="email" value={betrieb.email} onChange={feld('email')} placeholder="info@schreinerei-muster.de" /></label>
         <label>Website<input value={betrieb.website} onChange={feld('website')} placeholder="www.schreinerei-muster.de" /></label>
         <label>Zusatz (z. B. HRB, USt-IdNr.)<input value={betrieb.zusatz} onChange={feld('zusatz')} placeholder="optional" /></label>
+      </div>
+
+      <div className="profil-datei">
+        <span className="klein">
+          <strong>Profil mitnehmen (ohne Server):</strong> Einmal als Datei sichern — auf jedem weiteren Gerät (Werkstatt-PC,
+          Laptop, Kollege) einfach laden statt neu tippen. Schützt auch vor Datenverlust beim Browser-Aufräumen.
+        </span>
+        <div className="aktionen" style={{ marginTop: 8 }}>
+          <button type="button" className="sekundaer" onClick={profilSichern} disabled={!betrieb.firmenname.trim()}>
+            💾 Profil sichern (Datei)
+          </button>
+          <button type="button" className="sekundaer" onClick={() => profilRef.current?.click()}>
+            📂 Profil laden
+          </button>
+          <input ref={profilRef} type="file" accept="application/json,.json" hidden onChange={profilLaden} />
+        </div>
+        {profilInfo && <p className="pruef-ok" style={{ marginTop: 8 }}>{profilInfo}</p>}
       </div>
 
       <div className="aktionen">
