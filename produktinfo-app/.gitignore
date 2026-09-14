@@ -25,4 +25,6 @@ dist-ssr
 
 # Test-Artefakte
 screenshots/
-produktpass-deploy.tar.gz
+shots*/
+# Das Deploy-Bundle liegt bewusst versioniert unter deploy/ (Server lädt es von GitHub)
+/produktpass-deploy.tar.gz

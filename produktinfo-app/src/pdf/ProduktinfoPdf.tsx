@@ -40,7 +40,18 @@ const s = StyleSheet.create({
   infoBox: { flex: 1, borderTop: `2 solid ${FARBE_AKZENT}`, paddingTop: 8 },
   infoLabel: { fontSize: 8, color: FARBE_GRAU, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 3 },
   infoText: { fontSize: 10.5, lineHeight: 1.5 },
-  gpsrBox: { border: `1 solid ${FARBE_LINIE}`, borderRadius: 4, padding: 12, marginTop: 'auto' },
+  dppZeile: { flexDirection: 'row', gap: 12, marginTop: 'auto', alignItems: 'stretch' },
+  gpsrBox: { flex: 1, border: `1 solid ${FARBE_LINIE}`, borderRadius: 4, padding: 12 },
+  qrBox: {
+    width: 104,
+    border: `1 solid ${FARBE_LINIE}`,
+    borderRadius: 4,
+    padding: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  qrBild: { width: 74, height: 74, marginBottom: 5 },
+  qrText: { fontSize: 6.5, color: FARBE_GRAU, textAlign: 'center', lineHeight: 1.35 },
   gpsrTitel: { fontSize: 9, fontFamily: 'Helvetica-Bold', color: FARBE_AKZENT, marginBottom: 6, textTransform: 'uppercase', letterSpacing: 1 },
   gpsrZeile: { flexDirection: 'row', marginBottom: 2 },
   gpsrLabel: { width: 150, fontSize: 9, color: FARBE_GRAU, lineHeight: 1.4 },
@@ -70,6 +81,8 @@ interface Props {
   betrieb: Betrieb;
   projekt: Projekt;
   auswahl: Auswahl;
+  /** QR-Code (PNG-DataURL) mit der maschinenlesbaren Produktidentifikation (DPP-ready). */
+  qrDataUrl?: string | null;
 }
 
 function textAbsaetze(b: Baustein, auswahl: Auswahl): Absatz[] {
@@ -105,7 +118,7 @@ function datumDe(iso: string): string {
   return `${t}.${m}.${j}`;
 }
 
-export function ProduktinfoPdf({ betrieb, projekt, auswahl }: Props) {
+export function ProduktinfoPdf({ betrieb, projekt, auswahl, qrDataUrl }: Props) {
   const gruppen = gruppiertNachKategorie(auswahl.bausteinIds);
   const typLabel = PRODUKT_TYPEN.find((t) => t.id === projekt.produktTyp)?.label ?? '';
   const fusszeileText = `${betrieb.firmenname || 'Produktinformation'} · ${betrieb.plzOrt}`.trim();
@@ -164,8 +177,9 @@ export function ProduktinfoPdf({ betrieb, projekt, auswahl }: Props) {
 
         {projekt.freitext ? <Text style={[s.absatz, { marginBottom: 22 }]}>{projekt.freitext}</Text> : null}
 
-        {/* GPSR-Produktangaben (EU 2023/988, Art. 9): Hersteller, Anschrift,
+        {/* GPSR-Produktangaben (EU 2023/988, Art. 9) + DPP-QR: Hersteller, Anschrift,
             elektronische Adresse, Produktidentifikation — als Begleitunterlage. */}
+        <View style={s.dppZeile}>
         <View style={s.gpsrBox}>
           <Text style={s.gpsrTitel}>Produktangaben nach EU-Produktsicherheitsverordnung (EU) 2023/988</Text>
           <View style={s.gpsrZeile}>
@@ -200,6 +214,17 @@ export function ProduktinfoPdf({ betrieb, projekt, auswahl }: Props) {
               <Text style={s.gpsrWert}>{betrieb.zusatz}</Text>
             </View>
           ) : null}
+          <View style={s.gpsrZeile}>
+            <Text style={s.gpsrLabel}>DPP-Kennung</Text>
+            <Text style={s.gpsrWert}>{projekt.dppId}</Text>
+          </View>
+        </View>
+        {qrDataUrl ? (
+          <View style={s.qrBox}>
+            <Image src={qrDataUrl} style={s.qrBild} />
+            <Text style={s.qrText}>{'Digitaler Produktpass\n(DPP-ready) — Produktangaben\nmaschinenlesbar'}</Text>
+          </View>
+        ) : null}
         </View>
 
         <View style={s.fussLinie} fixed />

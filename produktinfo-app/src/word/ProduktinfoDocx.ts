@@ -150,7 +150,12 @@ function datumDe(iso: string): string {
   return j && m && t ? `${t}.${m}.${j}` : iso;
 }
 
-export async function baueDocx(betrieb: Betrieb, projekt: Projekt, auswahl: Auswahl): Promise<Document> {
+export async function baueDocx(
+  betrieb: Betrieb,
+  projekt: Projekt,
+  auswahl: Auswahl,
+  qrDataUrl?: string | null
+): Promise<Document> {
   const gruppen = gruppiertNachKategorie(auswahl.bausteinIds);
   const typLabel = PRODUKT_TYPEN.find((t) => t.id === projekt.produktTyp)?.label ?? '';
   const titel = projekt.produktBezeichnung || typLabel;
@@ -237,6 +242,7 @@ export async function baueDocx(betrieb: Betrieb, projekt: Projekt, auswahl: Ausw
   ];
   if (projekt.dopNummer) gpsrZeilen.push(gpsrZeile('Leistungserklärung (DoP)', `Nr. ${projekt.dopNummer} — wird mit diesem Dokument übergeben`));
   if (betrieb.zusatz) gpsrZeilen.push(gpsrZeile('Weitere Angaben', betrieb.zusatz));
+  gpsrZeilen.push(gpsrZeile('DPP-Kennung', projekt.dppId));
 
   const rahmen = { style: BorderStyle.SINGLE, size: 6, color: LINIE } as const;
   deckblatt.push(
@@ -265,6 +271,52 @@ export async function baueDocx(betrieb: Betrieb, projekt: Projekt, auswahl: Ausw
       ],
     })
   );
+
+  // DPP-QR: maschinenlesbare Produktidentifikation (DPP-ready)
+  if (qrDataUrl) {
+    const { bytes } = dataUrlZuBytes(qrDataUrl);
+    deckblatt.push(
+      new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: { ...KEIN_RAHMEN, insideHorizontal: KEIN_RAHMEN.top, insideVertical: KEIN_RAHMEN.top },
+        rows: [
+          new TableRow({
+            children: [
+              new TableCell({
+                borders: KEIN_RAHMEN,
+                width: { size: 16, type: WidthType.PERCENTAGE },
+                margins: { top: 160, bottom: 40, left: 0, right: 120 },
+                children: [
+                  new Paragraph({
+                    children: [new ImageRun({ data: bytes, type: 'png', transformation: { width: 84, height: 84 } })],
+                  }),
+                ],
+              }),
+              new TableCell({
+                borders: KEIN_RAHMEN,
+                width: { size: 84, type: WidthType.PERCENTAGE },
+                margins: { top: 200, bottom: 40, left: 0, right: 0 },
+                children: [
+                  new Paragraph({
+                    spacing: { after: 40 },
+                    children: [text('DIGITALER PRODUKTPASS (DPP-READY)', { size: 15, bold: true, color: GRUEN, characterSpacing: 20 })],
+                  }),
+                  new Paragraph({
+                    children: [
+                      text(
+                        'Der QR-Code enthält die Produktidentifikation dieses Auftrags maschinenlesbar (Hersteller, Produkt, Material, DPP-Kennung).',
+                        { size: 16, color: GRAU }
+                      ),
+                    ],
+                  }),
+                ],
+              }),
+            ],
+          }),
+        ],
+      })
+    );
+  }
 
   deckblatt.push(new Paragraph({ children: [new PageBreak()] }));
 
@@ -407,10 +459,15 @@ export async function baueDocx(betrieb: Betrieb, projekt: Projekt, auswahl: Ausw
   });
 }
 
-export async function erzeugeDocxBlob(betrieb: Betrieb, projekt: Projekt, auswahl: Auswahl): Promise<Blob> {
-  return Packer.toBlob(await baueDocx(betrieb, projekt, auswahl));
+export async function erzeugeDocxBlob(betrieb: Betrieb, projekt: Projekt, auswahl: Auswahl, qrDataUrl?: string | null): Promise<Blob> {
+  return Packer.toBlob(await baueDocx(betrieb, projekt, auswahl, qrDataUrl));
 }
 
-export async function erzeugeDocxBuffer(betrieb: Betrieb, projekt: Projekt, auswahl: Auswahl): Promise<Uint8Array> {
-  return Packer.toBuffer(await baueDocx(betrieb, projekt, auswahl));
+export async function erzeugeDocxBuffer(
+  betrieb: Betrieb,
+  projekt: Projekt,
+  auswahl: Auswahl,
+  qrDataUrl?: string | null
+): Promise<Uint8Array> {
+  return Packer.toBuffer(await baueDocx(betrieb, projekt, auswahl, qrDataUrl));
 }

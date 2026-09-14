@@ -1,0 +1,135 @@
+{
+  "schema": "produktpass.meosapp.de/dpp",
+  "schemaVersion": "1.0",
+  "hinweis": "DPP-ready-Datensatz einer handwerklichen Einzelanfertigung. Struktur nach den Inhaltskategorien des Digitalen Produktpasses (ESPR (EU) 2024/1781 bzw. CPR (EU) 2024/3110). Die produktspezifischen delegierten Rechtsakte (Möbel: erwartet 2028, verbindlich ~2029/2030) stehen noch aus; die EU-DPP-Registry speichert nur Kennungen, die Produktdaten bleiben beim Hersteller bzw. seinem DPP-Dienstleister. Dieser Datensatz ist die maschinenlesbare Grundlage für die Überführung in das finale EU-Schema. Enthält bewusst keine Kundendaten.",
+  "erstellt": "2026-09-14T12:08:40.555Z",
+  "inhaltsstand": "2026-08",
+  "produktidentifikation": {
+    "dppId": "85d10f10-fdb8-4fa4-9229-59af2aa892ee",
+    "produktbezeichnung": "Einbauschrank Flur, Eiche furniert, geölt",
+    "produkttyp": "Einbaumöbel",
+    "auftragsnummer": "2026-0815",
+    "herstellungsart": "Handwerkliche Einzelanfertigung (Losgröße 1)",
+    "uebergabedatum": "2026-08-27",
+    "bauvorhaben": "Neubau Einfamilienhaus"
+  },
+  "hersteller": {
+    "name": "Schreinerei Muster GmbH",
+    "inhaber": "Max Muster, Schreinermeister",
+    "anschrift": {
+      "strasse": "Werkstattweg 1",
+      "plzOrt": "88453 Erolzheim",
+      "land": "DE"
+    },
+    "telefon": "07354 000000",
+    "email": "info@schreinerei-muster.de",
+    "website": "www.schreinerei-muster.de",
+    "registerangaben": "HRB 000000, Amtsgericht Ulm"
+  },
+  "materialzusammensetzung": [
+    {
+      "titel": "Holzherkunft und Nachhaltigkeit",
+      "inhalt": "Wir setzen Holz aus nachweislich legaler und nachhaltiger Bewirtschaftung ein — bevorzugt aus regionaler und europäischer Herkunft sowie zertifizierte Partien (z. B. FSC oder PEFC). Die EU-Entwaldungsverordnung (EUDR) verpflichtet die Lieferkette zusätzlich, die Entwaldungsfreiheit von Holzprodukten zu dokumentieren; wir beziehen unsere Hölzer über Lieferanten, die diese Nachweise führen. Auf Wunsch nennen wir Ihnen gerne Herkunft und Zertifizierung der in Ihrem Produkt eingesetzten Hölzer."
+    },
+    {
+      "titel": "Natürliche Farb- und Strukturmerkmale",
+      "inhalt": "Jede Holzart, jeder Stamm und jedes Furnier hat eigene Farbe, Struktur und Wuchsmerkmale. Unter Lichteinfluss (UV) verändern sich Holz und Beschichtungen: Helle Hölzer dunkeln nach oder vergilben (typisch bei Ahorn), dunkle können aufhellen. Massivholz wirkt optisch oft anders als furnierte Flächen; auch das fertigungsübliche „Stürzen“ von Furnieren erzeugt wechselnde Lichtreflexe.\n\nDiese Abweichungen sind natur- und fertigungsbedingt und stellen — sofern nichts anderes vereinbart ist — keinen Mangel dar. Tipp: Dekorationsobjekte auf jungen Oberflächen gelegentlich umstellen, damit die Fläche gleichmäßig nachdunkelt."
+    },
+    {
+      "titel": "Holzart: Eiche",
+      "inhalt": "Eiche ist ein hartes, dekoratives Laubholz mit markanter Maserung und ausgezeichneten Festigkeitseigenschaften bei hohem Abnutzungswiderstand. Das gelbbraune Kernholz dunkelt nach. Besonderheit: Die enthaltenen Gerbstoffe reagieren mit Eisen und Feuchtigkeit zu blauschwarzen Flecken — deshalb keine Eisengegenstände dauerhaft feucht auf Eichenflächen liegen lassen."
+    },
+    {
+      "titel": "Holzwerkstoffe (Span, MDF, Multiplex & Co.)",
+      "inhalt": "Holzwerkstoffe entstehen durch Verpressen von Furnieren, Stäben, Spänen oder Fasern und bieten gegenüber Massivholz gleichmäßigere Eigenschaften, große Formate und deutlich geringeres Quellen und Schwinden. In Ihrem Produkt kommen je nach Bauteil zum Einsatz: Spanplatten (roh, furniert oder melaminharzbeschichtet), MDF-Platten (homogen, ideal für lackierte und profilierte Fronten), Multiplex-/Sperrholzplatten (kreuzweise verleimte Furnierlagen, charakteristisches Kantenbild), Tischlerplatten sowie harte Faserplatten (z. B. Rückwände) und HDF (Laminat-Trägerplatten).\n\nWir verarbeiten ausschließlich geprüfte Platten namhafter Hersteller, die die aktuellen EU-Formaldehyd-Grenzwerte einhalten; bevorzugt setzen wir besonders emissionsarme Qualitäten ein. Furniere und Beschichtungen sperren die Oberfläche zusätzlich ab."
+    },
+    {
+      "titel": "Wohngesundheit: VOC und Gefahrstoffvermeidung",
+      "inhalt": "Holz und Holzwerkstoffe geben natürliche flüchtige Verbindungen (VOC) wie Terpene ab — sie sind Ursache des typischen Holzgeruchs. Nach wissenschaftlichen Untersuchungen (u. a. Uniklinik Freiburg / Fraunhofer WKI) ist bei sachgerechter Verbauung keine Gesundheitsgefährdung durch holztypische VOC zu erkennen. Wo immer möglich, vermeiden wir zudem Gefahrstoffe wie Weichmacher (PVC), Holzschutzmittel im Innenraum und lösemittelreiche Beschichtungen; zu allen eingesetzten Materialien liegen uns technische Merkblätter und Sicherheitsdatenblätter vor."
+    },
+    {
+      "titel": "Geölte/gewachste Oberfläche",
+      "inhalt": "Öle und Wachse bestehen überwiegend aus nachwachsenden Rohstoffen (u. a. Leinöl, Holzöl, Bienen- und Carnaubawachs). Sie dringen ins Holz ein, erhalten die natürliche Haptik und Ausstrahlung, wirken antistatisch und lassen sich partiell ausbessern — der große Vorteil gegenüber Lack. Der Schutz vor Flüssigkeiten und Schmutz ist geringer als bei Lack; verschüttete Flüssigkeiten deshalb zügig aufnehmen.\n\nFrisch behandelte Flächen: in der ersten Woche nur trocken reinigen, volle Belastbarkeit nach etwa vier Wochen Durchhärtung. Kleine Gebrauchsspuren können Sie mit dem Original-Pflegeöl (bei uns erhältlich) selbst auffrischen; tiefere Stellen fein anschleifen (Korn 240/400) und nachölen.\n\n! Mit Öl getränkte Lappen können sich selbst entzünden! Gebrauchte Tücher ausgebreitet im Freien trocknen lassen oder in einem luftdichten Metallbehälter mit Wasser entsorgen — niemals zusammengeknüllt liegen lassen."
+    }
+  ],
+  "gebrauchsanweisungUndPflege": [
+    {
+      "titel": "Vorbemerkungen",
+      "inhalt": "Sie haben ein individuelles Produkt erworben, gefertigt in hoher handwerklicher Qualität. Damit Sie viele Jahre Freude daran haben, finden Sie in dieser Produktinformation Hinweise zum richtigen Gebrauch, zur Pflege und Wartung sowie zu Besonderheiten Ihres Produkts.\n\nUm Nutzungssicherheit und Gebrauchstauglichkeit dauerhaft zu erhalten, sind regelmäßige Kontrolle, Pflege, Wartung und Instandhaltung erforderlich — zum Beispiel das Nachstellen von Beschlägen. Diese Aufgaben sind nicht Bestandteil unserer vertraglichen Leistung, sondern obliegen Ihnen als Auftraggeber. Gerne bieten wir Ihnen dafür einen Wartungsvertrag an.\n\nDie bestimmungsgemäße Verwendung des Produkts ist Voraussetzung für eine lange Lebensdauer und den Erhalt aller zugesicherten Eigenschaften. Ergänzend zu dieser Produktinformation gelten die Gebrauchs- und Wartungsanleitungen der Hersteller verbauter Komponenten (z. B. Beschläge, Elektrogeräte, Antriebe) — diese erhalten Sie von uns bzw. finden sie im Anhang."
+    },
+    {
+      "titel": "Gewährleistung (Mängelhaftung)",
+      "inhalt": "Für Ihr Produkt gelten die gesetzlichen Mängelrechte. Die Verjährungsfrist beträgt in der Regel zwei Jahre ab Abnahme bzw. Übergabe; bei fest mit dem Gebäude verbundenen Leistungen (z. B. Einbaumöbel als Bauwerksbestandteil, Fenster, Haustüren, Treppen) fünf Jahre. Abweichende vertragliche Vereinbarungen (z. B. nach VOB/B) gehen vor.\n\nKein Mangel sind naturbedingte Eigenschaften des Werkstoffs Holz (z. B. Farb- und Strukturunterschiede, Nachdunkeln unter Lichteinfluss, geringes Quellen und Schwinden bei Raumklimaschwankungen) sowie Verschleiß durch Gebrauch oder Schäden durch unterlassene Pflege und Wartung. Bitte beachten Sie hierzu die Hinweise in dieser Produktinformation.\n\nSollte dennoch einmal etwas nicht in Ordnung sein: Melden Sie sich bitte direkt bei uns — wir kümmern uns schnell und unkompliziert um eine Lösung."
+    },
+    {
+      "titel": "Raumklima und Holz",
+      "inhalt": "Holz ist ein natürlicher Werkstoff, der auch in verarbeitetem Zustand „lebt“ und auf das Raumklima reagiert: Bei dauerhaft feuchter Luft nimmt es Feuchtigkeit auf und quillt, bei trockener Luft — vor allem in der Heizperiode — gibt es Feuchtigkeit ab und schwindet. Das kann zu Fugenbildung und in Extremfällen zu Rissen führen.\n\nDas richtige Raumklima liegt bei etwa 20–22 °C Lufttemperatur und 45–55 % relativer Luftfeuchte. Dieses Klima ist auch für Ihr Wohlbefinden ideal und sollte im Jahresdurchschnitt erreicht werden. Kontrollieren Sie das Raumklima am besten mit einem handelsüblichen Thermo-/Hygrometer und steuern Sie bei Bedarf mit Luftbefeuchtung oder Lüften gegen."
+    },
+    {
+      "titel": "Richtig heizen und lüften",
+      "inhalt": "Falsches Lüften und Heizen gehört zu den häufigsten Ursachen für Feuchte- und Schimmelschäden. Die wichtigsten Regeln:\n\n- Mehrmals täglich kurz stoß- oder querlüften (Fenster ganz öffnen) statt dauerhaft kippen — gekippte Fenster kühlen im Winter die Laibung aus und begünstigen Schimmel.\n- Feuchtigkeit möglichst dort ablüften, wo sie entsteht (Küche, Bad, Wäschetrocknung).\n- In Neubauten und nach größeren Umbauten in den ersten 2–3 Jahren verstärkt lüften (erhöhte Baufeuchte).\n- Räume möglichst gleichmäßig beheizen; starkes Auskühlen einzelner Räume vermeiden und Türen zu unbeheizten Räumen geschlossen halten.\n- Heizkörper nicht durch Möbel, Verkleidungen oder bodenlange Vorhänge verdecken.\n- Kellerräume im Sommer nur lüften, wenn die Außenluft kühler ist als der Raum."
+    },
+    {
+      "titel": "Vermeidung von Schimmel hinter Möbeln",
+      "inhalt": "Möbel an schlecht gedämmten Außenwänden verringern die Erwärmung der Wandoberfläche dahinter. Raumluftfeuchte kann dort kondensieren — es droht Schimmelbildung. Das gilt besonders für dicht eingebaute oder mit Passleisten geschlossene Einbaumöbel.\n\n- Möbel an Außenwänden möglichst mit Abstand zur Wand aufstellen (Hinterlüftung).\n- Bei kritischen Wänden: Wand im Winter leicht temperieren oder Möbel gezielt hinterlüften.\n- Nach Neubau oder Sanierung auf erhöhte Baufeuchte achten und verstärkt lüften.\n- Bitte sprechen Sie uns an — wir beraten Sie zu kritischen Wänden und Lösungen."
+    },
+    {
+      "titel": "Einbaumöbel",
+      "inhalt": "Einbaumöbel werden passgenau und ortsfest eingebaut und sind für die Nutzung an diesem Ort bestimmt. Durch den festen Einbau werden sie rechtlich dem Gebäude zugeordnet — das kann bei Versicherungsfällen und für Gewährleistungsfristen (Bauwerk: fünf Jahre) von Bedeutung sein.\n\nDa Einbaumöbel Wandflächen abdecken, ist an Außenwänden auf die Hinweise zur Schimmelvermeidung zu achten. Nachträgliche Veränderungen (z. B. Durchbrüche für Leitungen) bitte nur nach Rücksprache mit uns."
+    },
+    {
+      "titel": "Wandbefestigte Möbel",
+      "inhalt": "Wandbefestigte Möbel (Regale, Hängeschränke) sind mit Befestigungssystemen montiert, die auf die zu erwartenden Lasten und die vorhandene Wandkonstruktion abgestimmt sind. Die angegebene Traglast nicht überschreiten und Lasten möglichst gleichmäßig verteilen.\n\nSollen Möbel umgehängt werden, müssen Befestigungsmittel passend zur neuen Wand fachgerecht gewählt und gesetzt werden — wir übernehmen das gerne oder beraten Sie dazu."
+    },
+    {
+      "titel": "Korpusmöbel, Beschläge und Schubkästen",
+      "inhalt": "Die Beschläge von Türen, Klappen und Auszügen sind auf definierte Belastungen ausgelegt. Überlastung lässt Beschläge ausleiern oder ausbrechen. Ein gelegentliches Nachjustieren der Beschläge gehört zum normalen Gebrauch und ist kein Mangel — die wichtigsten Einstellungen zeigen wir Ihnen gerne bei der Übergabe.\n\nSchranktüren nicht dauerhaft offen stehen lassen: Sie sind ein Hindernis (Stoßgefahr) und belasten Bänder und Standsicherheit."
+    },
+    {
+      "titel": "Pflege von Holzoberflächen",
+      "inhalt": "- In der Regel genügt Staubwischen oder nebelfeuchtes Abwischen mit einem weichen Tuch — nie zu nass wischen, keine Feuchtigkeit stehen lassen.\n- Unterlagen verwenden (Schreibunterlage, Untersetzer), Gegenstände nicht über die Fläche schieben.\n- Direkten Dauerkontakt mit Kunststoff und Gummi vermeiden — enthaltene Weichmacher können Oberflächen anlösen.\n- Hohe Temperaturen und direkte Feuchtigkeit auf der Fläche vermeiden; für gleichmäßigen Lichteinfall sorgen (Deko gelegentlich umstellen).\n- Flecken mit mildem Seifenwasser entfernen; keine silikonhaltigen Polituren und keine Mikrofasertücher auf empfindlichen Lackflächen verwenden."
+    }
+  ],
+  "sicherheitsinformationen": [
+    {
+      "titel": "Sicherheitshinweise Möbel",
+      "inhalt": "- Brandgefahr: Möbel bestehen aus Holz bzw. Holzwerkstoffen. Kerzen und andere offene Flammen niemals unbeaufsichtigt auf oder im Möbel stehen lassen; nicht brennbare Untersetzer verwenden.\n- Quetschgefahr: Türen und Schubkästen an den Griffen bedienen — nicht zwischen Front und Korpus greifen.\n- Fehlgebrauch: Möbel nicht als Aufstiegshilfe verwenden. Nicht auf Schubkästen, Einlegeböden oder andere nicht dafür vorgesehene Teile steigen, setzen oder legen. Schubkästen und Böden nicht überladen — die Tragkraft ist auf den vorgesehenen Gebrauch ausgelegt.\n- Erstickungsgefahr: Schränke schließen weitgehend luftdicht. Achten Sie — besonders bei Kindern und abschließbaren Türen — darauf, dass sich niemand im Möbel aufhält.\n- Heiße und feuchte Gegenstände nur mit schützender Unterlage auf Tischplatten und Möbelflächen abstellen; verschüttete Flüssigkeiten sofort aufwischen.\n- Offen stehende Türen und ausgezogene Schubkästen sind Stolper- und Stoßstellen — nach Gebrauch schließen.\n\nBei der Übergabe haben wir Sie in Funktion und Bedienung eingewiesen. Bei Fehlgebrauch können Unfälle oder Schäden entstehen und Gewährleistungs- bzw. Haftungsansprüche entfallen."
+    },
+    {
+      "titel": "Kippsicherheit und Wandbefestigung",
+      "inhalt": "! Kippende Möbel können schwere Verletzungen verursachen — insbesondere bei Kindern. Wir haben Ihr Möbel bei der Montage gegen Kippen gesichert bzw. befestigt. Entfernen Sie diese Sicherung nicht.\n\n- Wird das Möbel umgestellt, muss es am neuen Standort erneut gegen Kippen gesichert werden — wir übernehmen das gerne fachgerecht.\n- Hohe oder wandhängende Möbel nur mit für die Wand geeigneten Befestigungsmitteln montieren; bei Unsicherheit fragen Sie uns.\n- Schwere Gegenstände in Schränken und Regalen möglichst unten lagern; nicht mehrere Schubkästen gleichzeitig öffnen.\n- Kinder nicht an Türen, Schubkästen oder Einlegeböden klettern lassen."
+    }
+  ],
+  "reparaturKreislaufEntsorgung": [
+    {
+      "titel": "Ergänzende Herstellerunterlagen",
+      "inhalt": "In Ihrem Produkt sind Komponenten namhafter Hersteller verbaut (z. B. Beschläge, Leuchten, Antriebe, Elektrogeräte, Oberflächenmaterialien). Deren Gebrauchsanleitungen, Sicherheits- und Pflegehinweise gelten ergänzend zu dieser Produktinformation und wurden Ihnen — soweit vorhanden — übergeben. Weitere technische Merkblätter und Sicherheitsdatenblätter zu eingesetzten Materialien stellen wir Ihnen auf Wunsch gerne zur Verfügung."
+    },
+    {
+      "titel": "Langlebigkeit, Rücknahme und Entsorgung",
+      "inhalt": "Ihr Produkt ist auf eine lange Lebensdauer ausgelegt und kann in vielen Fällen repariert, aufgearbeitet oder an geänderte Bedürfnisse angepasst werden — sprechen Sie uns an, bevor Sie ersetzen. Am Ende der Nutzungsdauer nehmen wir das Produkt auf Wunsch zurück und führen es einer fachgerechten, umweltgerechten Verwertung zu (es entstehen lediglich Kosten für Ausbau und Transport). Holz und Holzwerkstoffe werden dabei stofflich oder energetisch verwertet; Elektrokomponenten und Leuchtmittel gehören in die getrennte Sammlung (Elektroaltgeräte), nicht in den Hausmüll."
+    },
+    {
+      "titel": "Reparatur und Ersatzteile",
+      "inhalt": "Handwerklich gefertigte Produkte haben einen entscheidenden Vorteil: Sie sind reparierbar. Oberflächen lassen sich aufarbeiten, Beschläge nachjustieren oder tauschen, einzelne Teile nachfertigen — oft über Jahrzehnte. Ersatz- und Verschleißteile (Beschläge, Dichtungen, Leuchtmittel, Pflegemittel im passenden Farbton) erhalten Sie direkt bei uns. Melden Sie sich, bevor Sie ein beschädigtes Teil ersetzen oder entsorgen — meist ist die Reparatur die günstigere und nachhaltigere Lösung."
+    }
+  ],
+  "konformitaet": {
+    "produktsicherheit": "Herstellerangaben, Produktidentifikation und Sicherheitsinformationen nach EU-Produktsicherheitsverordnung (EU) 2023/988 enthalten.",
+    "hinweis": "Möbel/Innenausbau: keine CE-Kennzeichnungspflicht; Produktsicherheit nach GPSR."
+  },
+  "nachhaltigkeit": {
+    "langlebigkeit": "Handwerkliche Einzelanfertigung, auf lange Nutzungsdauer ausgelegt; Pflege- und Wartungshinweise sind Bestandteil dieses Datensatzes.",
+    "reparierbarkeit": "Reparatur, Nacharbeit und Ersatzteile über den Herstellerbetrieb möglich (Kontakt siehe Hersteller).",
+    "umweltkennzahlen": null,
+    "hinweisUmweltkennzahlen": "Standardisierte Umweltkennzahlen (z. B. EPD/CO₂-Fußabdruck) liegen für handwerkliche Einzelanfertigungen noch nicht vor; die Anforderungen des delegierten Rechtsakts Möbel (erwartet 2028) stehen aus."
+  },
+  "dokument": {
+    "formate": [
+      "pdf",
+      "docx",
+      "json"
+    ],
+    "erzeugtMit": "ProduktPass — produktpass.meosapp.de"
+  }
+}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { Betrieb, Projekt } from '../types';
+import { neueDppId } from '../dpp/id';
 
 /**
  * Alle Daten bleiben lokal im Browser (localStorage) — keine Cloud, kein Konto.
@@ -51,6 +52,7 @@ export const LEERER_BETRIEB: Betrieb = {
 
 export function leeresProjekt(): Projekt {
   return {
+    dppId: neueDppId(),
     produktTyp: 'moebel_frei',
     kundeName: '',
     kundeAdresse: '',

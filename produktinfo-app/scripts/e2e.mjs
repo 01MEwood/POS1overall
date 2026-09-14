@@ -84,6 +84,22 @@ try {
   const docxBytes = readFileSync(docxPfad);
   pruefe(docxBytes[0] === 0x50 && docxBytes[1] === 0x4b && docxBytes.length > 10_000,
     `Word heruntergeladen: ${docxDownload.suggestedFilename()} (${Math.round(docxBytes.length / 1024)} kB)`);
+
+  // — DPP-Datensatz (.json) —
+  const jsonPromise = page.waitForEvent('download', { timeout: 60_000 });
+  await page.getByRole('button', { name: /DPP-Datensatz/ }).click();
+  const jsonDownload = await jsonPromise;
+  const jsonPfad = join(shotDir, jsonDownload.suggestedFilename());
+  await jsonDownload.saveAs(jsonPfad);
+  const dpp = JSON.parse(readFileSync(jsonPfad, 'utf8'));
+  const uuidRe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+  pruefe(jsonDownload.suggestedFilename().startsWith('DPP-Datensatz_') && uuidRe.test(dpp.produktidentifikation?.dppId ?? ''),
+    `DPP-Datensatz heruntergeladen: ${jsonDownload.suggestedFilename()} (Kennung ${dpp.produktidentifikation?.dppId})`);
+  pruefe(dpp.hersteller?.name === 'Schreinerei Muster GmbH' && dpp.produktidentifikation?.auftragsnummer === '2026-0815',
+    'DPP-Datensatz: Hersteller und Auftragsnummer korrekt');
+  pruefe(Array.isArray(dpp.materialzusammensetzung) && dpp.materialzusammensetzung.some((m) => /Eiche/.test(m.titel)),
+    'DPP-Datensatz: gewählte Holzart Eiche in Materialzusammensetzung');
+  pruefe(!JSON.stringify(dpp).includes('Familie Beispiel'), 'DPP-Datensatz enthält keine Kundendaten');
   await page.screenshot({ path: join(shotDir, '4-fertig.png') });
 
   // — Persistenz: Reload behält Betrieb (localStorage) —

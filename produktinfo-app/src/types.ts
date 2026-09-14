@@ -87,6 +87,8 @@ export interface Betrieb {
 
 /** Auftrags-/Projektdaten für ein konkretes PDF. */
 export interface Projekt {
+  /** Global eindeutige DPP-Kennung des Auftrags (UUID) — steht im QR-Code und im DPP-Datensatz. */
+  dppId: string;
   produktTyp: ProduktTypId;
   kundeName: string;
   kundeAdresse: string;

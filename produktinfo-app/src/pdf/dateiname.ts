@@ -1,7 +1,7 @@
 import type { Projekt } from '../types';
 
 /** Dateiname für den Download, z. B. Produktinformation_Einbauschrank_Mueller_2026-08-27.pdf */
-export function dokumentDateiname(projekt: Projekt, endung: 'pdf' | 'docx'): string {
+export function dokumentDateiname(projekt: Projekt, endung: 'pdf' | 'docx' | 'json'): string {
   const teil = (t: string) =>
     t
       .trim()
@@ -12,9 +12,8 @@ export function dokumentDateiname(projekt: Projekt, endung: 'pdf' | 'docx'): str
       .replace(/[^a-zA-Z0-9-]+/g, '_')
       .replace(/^_+|_+$/g, '')
       .slice(0, 40);
-  const teile = ['Produktinformation', teil(projekt.produktBezeichnung), teil(projekt.kundeName), projekt.uebergabeDatum].filter(
-    Boolean
-  );
+  const praefix = endung === 'json' ? 'DPP-Datensatz' : 'Produktinformation';
+  const teile = [praefix, teil(projekt.produktBezeichnung), teil(projekt.kundeName), projekt.uebergabeDatum].filter(Boolean);
   return `${teile.join('_')}.${endung}`;
 }
 

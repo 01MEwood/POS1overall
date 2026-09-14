@@ -7,7 +7,9 @@ als App.
 Ein Schreinerbetrieb stellt pro Auftrag aus einer gepflegten Textbaustein-Bibliothek eine
 individuelle Produktinformation zusammen (Gebrauchs-, Pflege- und Sicherheitshinweise) und
 übergibt sie dem Kunden als PDF — mit eigenem Logo, Firmendaten und den seit 13.12.2024
-verpflichtenden Angaben der EU-Produktsicherheitsverordnung (GPSR).
+verpflichtenden Angaben der EU-Produktsicherheitsverordnung (GPSR). Zusätzlich: Word-Fassung,
+**QR-Code mit maschinenlesbarer Produktidentifikation** und ein **DPP-Datensatz (.json)** nach den
+Inhaltskategorien des Digitalen Produktpasses (ESPR/CPR) — siehe `docs/dpp.md`.
 
 ## Warum
 
@@ -18,6 +20,7 @@ verpflichtenden Angaben der EU-Produktsicherheitsverordnung (GPSR).
 | Rechtsstand Okt. 2019 (vor GPSR, BGB-Reform, EUDR …) | Inhalte Stand 2026-08, GPSR-Pflichtblock automatisch |
 | Kein Nachweis der Übergabe | Übergabebestätigung mit Unterschriftenfeldern |
 | Aktualisierung: unklar | Versionierte Bibliothek + Aktualitätswarnung + Update-Prozess |
+| Nur Papier | QR-Code + DPP-Datensatz: vorbereitet auf den Digitalen Produktpass |
 
 ## Schnellstart
 
@@ -40,8 +43,9 @@ bleiben im `localStorage` des Browsers — DSGVO-freundlich und offlinefähig na
 2. **Bausteine** — die empfohlene Auswahl prüfen: Pflichtbausteine (🔒 Sicherheit/Recht) sind fest,
    alles andere zu-/abwählbar; jeder Text ist pro Auftrag editierbar
    (`- ` = Aufzählung, `! ` = Warnbox, Leerzeile = Absatz).
-3. **PDF** — Pflichtangaben-Check (GPSR), dann „Individuelles PDF erzeugen“.
-   Optional mit Übergabebestätigung (Unterschriftenfelder) als Instruktionsnachweis.
+3. **Dokument** — Pflichtangaben-Check (GPSR), dann „Individuelles PDF erzeugen“ (Leitformat,
+   mit DPP-QR-Code), „Word (.docx)“ zum Weiterbearbeiten oder „DPP-Datensatz (.json)“ als
+   maschinenlesbare Fassung fürs Archiv. Optional mit Übergabebestätigung (Unterschriftenfelder).
 
 Das Betriebsprofil (⚙️ Betrieb) wird beim ersten Start abgefragt: Firmenname, Postanschrift und
 E-Mail sind GPSR-Pflicht; Logo als PNG/JPG (wird clientseitig verkleinert).
@@ -61,6 +65,8 @@ src/
 │   ├── pflege.ts       #    Pflege- und Wartungshinweise
 │   └── index.ts        #    Auswahl-Logik (pflicht/standard/relevant je Produkttyp)
 ├── pdf/ProduktinfoPdf.tsx  # PDF-Layout (@react-pdf/renderer)
+├── word/ProduktinfoDocx.ts # Word-Export (docx)
+├── dpp/                # DPP-Datensatz, QR-Payload, DPP-Kennung (docs/dpp.md)
 ├── components/         # Wizard-Schritte (Betrieb, Produkt, Bausteine, Export)
 ├── lib/                # Storage, Pflichtangaben-Prüfung, Bild-Handling, Text-Serialisierung
 └── types.ts            # Datenmodell
@@ -70,6 +76,7 @@ scripts/
 docs/
 ├── rechtsgrundlagen.md       # Rechtsrecherche Stand 08/2026 mit Quellen
 ├── inhalte-aktuell-halten.md # Update-Prozess + Termine bis 2030
+├── dpp.md                    # Digitaler Produktpass: Datensatz, Registry-Stand, Dienstleister-Rolle
 └── konzept.md                # Analyse der Alt-Vorlage + Produktprinzipien
 ```
 
@@ -88,11 +95,17 @@ Die App warnt automatisch, wenn `CONTENT_STAND` älter als 12 Monate ist.
 
 Einmalig: Im Hostinger-DNS-Panel für meosapp.de einen **A-Record `produktpass` → `31.97.122.6`** anlegen.
 
-Dann Bundle bauen und einspielen:
+Das fertige Bundle liegt versioniert im Repo (`deploy/produktpass-deploy.tar.gz`, erzeugt mit
+`bash scripts/erzeuge-deploy-bundle.sh`). Update auf dem Server = **ein Befehl** in der
+Hostinger-Webkonsole (Repo ist public, kein Login nötig):
 
 ```bash
-# Auf dem eigenen Rechner (im Ordner produktinfo-app):
-bash scripts/erzeuge-deploy-bundle.sh          # → produktpass-deploy.tar.gz
+curl -fsSL https://raw.githubusercontent.com/01MEwood/POS1overall/claude/carpenter-product-info-app-oo2cvl/produktinfo-app/deploy/produktpass-deploy.tar.gz -o /tmp/pp.tar.gz && rm -rf /opt/produktpass/dist && tar -xzf /tmp/pp.tar.gz -C /opt && bash /opt/produktpass/install.sh
+```
+
+Alternativ klassisch per SSH:
+
+```bash
 scp produktpass-deploy.tar.gz root@31.97.122.6:/opt/
 ssh root@31.97.122.6 'cd /opt && tar xzf produktpass-deploy.tar.gz && cd produktpass && bash install.sh'
 ```
@@ -116,6 +129,7 @@ Für lokale Vorschau ohne Server: `npm run preview`.
 ## Mögliche Ausbaustufen
 
 - Auftragsliste mit lokaler Historie (IndexedDB) und Duplizieren früherer PDFs
-- Digitaler-Produktpass-Export (ESPR, für Möbel ~2029 erwartet) aus den bereits strukturierten Daten
+- DPP-Hosting je Kennung + Anbindung an die EU-DPP-Registry (API), sobald der delegierte
+  Rechtsakt Möbel (2028) und das Dienstleister-Zertifikat vorliegen — siehe `docs/dpp.md`
 - Mehrere Sprachen (GPSR verlangt die Sprache des Ziellandes)
 - Verbands-Contentfeed: Bibliothek als JSON von zentraler Stelle laden

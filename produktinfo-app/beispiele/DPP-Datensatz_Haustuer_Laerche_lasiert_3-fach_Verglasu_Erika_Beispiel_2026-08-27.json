@@ -1,0 +1,132 @@
+{
+  "schema": "produktpass.meosapp.de/dpp",
+  "schemaVersion": "1.0",
+  "hinweis": "DPP-ready-Datensatz einer handwerklichen Einzelanfertigung. Struktur nach den Inhaltskategorien des Digitalen Produktpasses (ESPR (EU) 2024/1781 bzw. CPR (EU) 2024/3110). Die produktspezifischen delegierten Rechtsakte (Möbel: erwartet 2028, verbindlich ~2029/2030) stehen noch aus; die EU-DPP-Registry speichert nur Kennungen, die Produktdaten bleiben beim Hersteller bzw. seinem DPP-Dienstleister. Dieser Datensatz ist die maschinenlesbare Grundlage für die Überführung in das finale EU-Schema. Enthält bewusst keine Kundendaten.",
+  "erstellt": "2026-09-14T12:08:40.828Z",
+  "inhaltsstand": "2026-08",
+  "produktidentifikation": {
+    "dppId": "2ebe9545-b468-4776-85d9-b9e5cc0b4f47",
+    "produktbezeichnung": "Haustür Lärche, lasiert, 3-fach Verglasung",
+    "produkttyp": "Haustür",
+    "auftragsnummer": "2026-0901",
+    "herstellungsart": "Handwerkliche Einzelanfertigung (Losgröße 1)",
+    "uebergabedatum": "2026-08-27",
+    "bauvorhaben": "Sanierung Altbau"
+  },
+  "hersteller": {
+    "name": "Schreinerei Muster GmbH",
+    "inhaber": "Max Muster, Schreinermeister",
+    "anschrift": {
+      "strasse": "Werkstattweg 1",
+      "plzOrt": "88453 Erolzheim",
+      "land": "DE"
+    },
+    "telefon": "07354 000000",
+    "email": "info@schreinerei-muster.de",
+    "website": "www.schreinerei-muster.de",
+    "registerangaben": "HRB 000000, Amtsgericht Ulm"
+  },
+  "materialzusammensetzung": [
+    {
+      "titel": "Holzherkunft und Nachhaltigkeit",
+      "inhalt": "Wir setzen Holz aus nachweislich legaler und nachhaltiger Bewirtschaftung ein — bevorzugt aus regionaler und europäischer Herkunft sowie zertifizierte Partien (z. B. FSC oder PEFC). Die EU-Entwaldungsverordnung (EUDR) verpflichtet die Lieferkette zusätzlich, die Entwaldungsfreiheit von Holzprodukten zu dokumentieren; wir beziehen unsere Hölzer über Lieferanten, die diese Nachweise führen. Auf Wunsch nennen wir Ihnen gerne Herkunft und Zertifizierung der in Ihrem Produkt eingesetzten Hölzer."
+    },
+    {
+      "titel": "Natürliche Farb- und Strukturmerkmale",
+      "inhalt": "Jede Holzart, jeder Stamm und jedes Furnier hat eigene Farbe, Struktur und Wuchsmerkmale. Unter Lichteinfluss (UV) verändern sich Holz und Beschichtungen: Helle Hölzer dunkeln nach oder vergilben (typisch bei Ahorn), dunkle können aufhellen. Massivholz wirkt optisch oft anders als furnierte Flächen; auch das fertigungsübliche „Stürzen“ von Furnieren erzeugt wechselnde Lichtreflexe.\n\nDiese Abweichungen sind natur- und fertigungsbedingt und stellen — sofern nichts anderes vereinbart ist — keinen Mangel dar. Tipp: Dekorationsobjekte auf jungen Oberflächen gelegentlich umstellen, damit die Fläche gleichmäßig nachdunkelt."
+    },
+    {
+      "titel": "Holzart: Lärche",
+      "inhalt": "Lärche ist das schwerste und härteste heimische Nadelholz (nach der Eibe) mit leuchtend rotbraunem, intensiv nachdunkelndem Kernholz und markanter Maserung. Das harzhaltige Kernholz ist witterungsbeständig und deshalb erste Wahl für Fenster, Haustüren und Terrassen. Astbereiche und Harzaustritt sind holztypisch."
+    },
+    {
+      "titel": "Dicht- und Fugenmaterialien",
+      "inhalt": "Dichtstoffe verschließen Fugen, nehmen Bauteilbewegungen auf und sperren Feuchtigkeit, Staub und Zugluft ab. In Nassbereichen kommen fungizid ausgerüstete Silikone zum Einsatz, im Bau- und Anschlussbereich Acryl-Dichtstoffe. Wichtig: Elastische Fugen sind Wartungsfugen mit begrenzter Lebensdauer — sie müssen regelmäßig kontrolliert und bei Rissen oder Ablösung erneuert werden (siehe Pflegekapitel)."
+    },
+    {
+      "titel": "Lasierte Oberfläche",
+      "inhalt": "Lasuren sind diffusionsoffener und elastischer als Lacke und werden vor allem für Fenster, Haustüren und andere Außenbauteile eingesetzt. Sie schützen das Holz vor Witterung und UV-Strahlung und geben ihm Farbe: Dünnschichtlasuren lassen die Maserung sichtbar, Dickschichtlasuren wirken deckender. Heutige Lasuren sind überwiegend wasserbasiert und emissionsarm. Außenflächen benötigen regelmäßige Kontrolle und Pflegeanstriche — siehe Wartungshinweise."
+    }
+  ],
+  "gebrauchsanweisungUndPflege": [
+    {
+      "titel": "Vorbemerkungen",
+      "inhalt": "Sie haben ein individuelles Produkt erworben, gefertigt in hoher handwerklicher Qualität. Damit Sie viele Jahre Freude daran haben, finden Sie in dieser Produktinformation Hinweise zum richtigen Gebrauch, zur Pflege und Wartung sowie zu Besonderheiten Ihres Produkts.\n\nUm Nutzungssicherheit und Gebrauchstauglichkeit dauerhaft zu erhalten, sind regelmäßige Kontrolle, Pflege, Wartung und Instandhaltung erforderlich — zum Beispiel das Nachstellen von Beschlägen. Diese Aufgaben sind nicht Bestandteil unserer vertraglichen Leistung, sondern obliegen Ihnen als Auftraggeber. Gerne bieten wir Ihnen dafür einen Wartungsvertrag an.\n\nDie bestimmungsgemäße Verwendung des Produkts ist Voraussetzung für eine lange Lebensdauer und den Erhalt aller zugesicherten Eigenschaften. Ergänzend zu dieser Produktinformation gelten die Gebrauchs- und Wartungsanleitungen der Hersteller verbauter Komponenten (z. B. Beschläge, Elektrogeräte, Antriebe) — diese erhalten Sie von uns bzw. finden sie im Anhang."
+    },
+    {
+      "titel": "Gewährleistung (Mängelhaftung)",
+      "inhalt": "Für Ihr Produkt gelten die gesetzlichen Mängelrechte. Die Verjährungsfrist beträgt in der Regel zwei Jahre ab Abnahme bzw. Übergabe; bei fest mit dem Gebäude verbundenen Leistungen (z. B. Einbaumöbel als Bauwerksbestandteil, Fenster, Haustüren, Treppen) fünf Jahre. Abweichende vertragliche Vereinbarungen (z. B. nach VOB/B) gehen vor.\n\nKein Mangel sind naturbedingte Eigenschaften des Werkstoffs Holz (z. B. Farb- und Strukturunterschiede, Nachdunkeln unter Lichteinfluss, geringes Quellen und Schwinden bei Raumklimaschwankungen) sowie Verschleiß durch Gebrauch oder Schäden durch unterlassene Pflege und Wartung. Bitte beachten Sie hierzu die Hinweise in dieser Produktinformation.\n\nSollte dennoch einmal etwas nicht in Ordnung sein: Melden Sie sich bitte direkt bei uns — wir kümmern uns schnell und unkompliziert um eine Lösung."
+    },
+    {
+      "titel": "Haustür: Schutz während der Bauphase",
+      "inhalt": "- Oberfläche während Putz- und Malerarbeiten mit geeigneten Abdeckungen schützen; nur UV-beständige, rückstandsfrei entfernbare Klebebänder verwenden und diese spätestens nach zwei Wochen abnehmen.\n- Putz- und Mörtelreste dürfen nicht in die Beschläge gelangen — eine nachträgliche Reinigung ist kaum möglich.\n- Feste Verschmutzungen (Gips, Mörtel) schonend mit Holz- oder Kunststoffspachtel entfernen; keine aggressiven Reiniger verwenden.\n- Bei relativer Luftfeuchte über 60 % im Bau ist von zu hoher Baufeuchte auszugehen — der Bauherr muss für Austrocknung sorgen; feuchtebedingte Schäden an Holzbauteilen sind sonst von Mängelansprüchen ausgeschlossen."
+    },
+    {
+      "titel": "Haustür: Gebrauch und eingeschränkte Nutzung",
+      "inhalt": "Ihre Haustür ist mit einer (Mehrfach-)Verriegelung ausgestattet. Erst das vollständige Verriegeln stellt die vereinbarte Wind-, Schlagregen- und Luftdichtheit sowie Schallschutz und Einbruchhemmung her — und entlastet das Türblatt gegen Verzug. Ziehen Sie die Tür deshalb nicht nur in die Falle, sondern verriegeln Sie sie, wann immer möglich.\n\nEin geringfügiges, jahreszeitlich bedingtes Arbeiten des Türblatts ist bei Holzhaustüren normal und zulässig, solange die Funktion gewährleistet bleibt."
+    },
+    {
+      "titel": "Pflege von Holzoberflächen",
+      "inhalt": "- In der Regel genügt Staubwischen oder nebelfeuchtes Abwischen mit einem weichen Tuch — nie zu nass wischen, keine Feuchtigkeit stehen lassen.\n- Unterlagen verwenden (Schreibunterlage, Untersetzer), Gegenstände nicht über die Fläche schieben.\n- Direkten Dauerkontakt mit Kunststoff und Gummi vermeiden — enthaltene Weichmacher können Oberflächen anlösen.\n- Hohe Temperaturen und direkte Feuchtigkeit auf der Fläche vermeiden; für gleichmäßigen Lichteinfall sorgen (Deko gelegentlich umstellen).\n- Flecken mit mildem Seifenwasser entfernen; keine silikonhaltigen Polituren und keine Mikrofasertücher auf empfindlichen Lackflächen verwenden."
+    },
+    {
+      "titel": "Pflege von Glasflächen",
+      "inhalt": "- Mit viel sauberem Wasser, weichem Schwamm/Leder und haushaltsüblichem Glasreiniger arbeiten; anschließend abziehen.\n- Keine scheuernden Mittel, keine Klingen/Glashobel — besonders nicht auf ESG und beschichteten Gläsern; „Abklingen“ ganzer Flächen ist unzulässig.\n- Kleber-, Zement- oder Silikonreste umgehend schonend entfernen (Spiritus/Isopropanol punktuell; nicht auf Dichtungen und Lackflächen).\n- Satinierte Gläser: keine silikon- oder säurehaltigen Reiniger; Fettflecken mit Glasreiniger entfernen.\n- Beschichtete Spezialgläser (z. B. selbstreinigend): nur die vom Hersteller zugelassenen Mittel verwenden."
+    },
+    {
+      "titel": "Wartung der Beschläge",
+      "inhalt": "Ihre Produkte sind mit hochwertigen Beschlägen ausgestattet. Damit sie dauerhaft leicht laufen: alle zugänglichen beweglichen Beschlagteile einmal jährlich mit säure- und harzfreiem Öl oder Fett leicht schmieren, Befestigungsschrauben auf festen Sitz prüfen und sicherheitsrelevante Teile (z. B. Eck- und Scherenlager bei Fenstern) kontrollieren. Das gebrauchsbedingte Nachstellen von Beschlägen gehört zum normalen Unterhalt und ist kein Mangel. Einstell- und Reparaturarbeiten sowie den Tausch von Beschlagteilen bitte dem Fachbetrieb überlassen; beim Verriegeln spürbarer Widerstand von Dichtungen ist normal."
+    },
+    {
+      "titel": "Wartung der Dichtungen",
+      "inhalt": "Ihre Bauelemente enthalten elastische Dichtprofile. Reinigen Sie diese mit Wasser und mildem Reinigungsmittel und behandeln Sie sie ein- bis zweimal jährlich mit einem geeigneten Pflegemittel (z. B. Silikon-Pflegestift), damit sie geschmeidig bleiben. Beim Streichen/Lackieren Dichtungen und Beschläge nicht überstreichen. Je nach Beanspruchung kann nach Jahren ein Austausch erforderlich werden — das ist normaler Verschleiß."
+    },
+    {
+      "titel": "Wartung und Pflege der Haustür",
+      "inhalt": "- Oberfläche zweimal jährlich (ideal: Frühjahr und Herbst) auf Beschädigungen prüfen. Kleine Druckstellen, Risse oder Fugenöffnungen sofort mit Original-Beschichtungsmaterial schließen — erhältlich bei uns im passenden Farbton.\n- Verwitterte Flächen: fein anschleifen (Korn 180–220), gründlich und fettfrei reinigen, mit Originalmaterial gleichmäßig nachstreichen. Eine Pflegemilch verschließt Mikrorisse (z. B. nach Hagel) und lässt Wasser abperlen.\n- Beschläge ein- bis zweimal jährlich mit einem Tropfen säurefreiem Öl schmieren, überschüssiges Öl abwischen; Schließzylinder nur mit Graphitpuder, Riegel und Falle leicht fetten.\n- Dichtungen feucht reinigen und dünn mit Pflegemittel behandeln; Reinigung der Tür mit mildem, scheuerfreiem Reiniger.\n- Alle 2 Jahre die gesamte Oberflächenbeschichtung prüfen und Fehlstellen überarbeiten (lassen) — so bleibt der Witterungsschutz erhalten."
+    }
+  ],
+  "sicherheitsinformationen": [
+    {
+      "titel": "Sicherheitshinweise Türen",
+      "inhalt": "- Ein zuschlagender Türflügel kann schwere Verletzungen verursachen. Beim Schließen nicht zwischen Flügel und Rahmen (Falz) greifen — Quetschgefahr, besonders für Kinderhände.\n- Den Flügel über den gesamten Weg von Hand führen und mit geringer Geschwindigkeit an den Rahmen heranführen; Türen nicht zuschlagen (lassen), z. B. bei Durchzug.\n- Türgriffe nur in der vorgesehenen Drehrichtung und nicht über den Anschlag hinaus betätigen; den Schlüssel nicht zum Ziehen/Bewegen des Flügels verwenden.\n- Türflügel und Griffe nicht zusätzlich belasten (nicht daran hängen oder abstützen); keine Gegenstände zwischen Flügel und Rahmen klemmen.\n- Zur Öffnungsbegrenzung einen Türstopper einsetzen, damit die Tür nicht gegen Wand oder Möbel schlägt."
+    }
+  ],
+  "reparaturKreislaufEntsorgung": [
+    {
+      "titel": "Ergänzende Herstellerunterlagen",
+      "inhalt": "In Ihrem Produkt sind Komponenten namhafter Hersteller verbaut (z. B. Beschläge, Leuchten, Antriebe, Elektrogeräte, Oberflächenmaterialien). Deren Gebrauchsanleitungen, Sicherheits- und Pflegehinweise gelten ergänzend zu dieser Produktinformation und wurden Ihnen — soweit vorhanden — übergeben. Weitere technische Merkblätter und Sicherheitsdatenblätter zu eingesetzten Materialien stellen wir Ihnen auf Wunsch gerne zur Verfügung."
+    },
+    {
+      "titel": "Langlebigkeit, Rücknahme und Entsorgung",
+      "inhalt": "Ihr Produkt ist auf eine lange Lebensdauer ausgelegt und kann in vielen Fällen repariert, aufgearbeitet oder an geänderte Bedürfnisse angepasst werden — sprechen Sie uns an, bevor Sie ersetzen. Am Ende der Nutzungsdauer nehmen wir das Produkt auf Wunsch zurück und führen es einer fachgerechten, umweltgerechten Verwertung zu (es entstehen lediglich Kosten für Ausbau und Transport). Holz und Holzwerkstoffe werden dabei stofflich oder energetisch verwertet; Elektrokomponenten und Leuchtmittel gehören in die getrennte Sammlung (Elektroaltgeräte), nicht in den Hausmüll."
+    },
+    {
+      "titel": "Reparatur und Ersatzteile",
+      "inhalt": "Handwerklich gefertigte Produkte haben einen entscheidenden Vorteil: Sie sind reparierbar. Oberflächen lassen sich aufarbeiten, Beschläge nachjustieren oder tauschen, einzelne Teile nachfertigen — oft über Jahrzehnte. Ersatz- und Verschleißteile (Beschläge, Dichtungen, Leuchtmittel, Pflegemittel im passenden Farbton) erhalten Sie direkt bei uns. Melden Sie sich, bevor Sie ein beschädigtes Teil ersetzen oder entsorgen — meist ist die Reparatur die günstigere und nachhaltigere Lösung."
+    },
+    {
+      "titel": "Unser Service: Wartung und Inspektion",
+      "inhalt": "Regelmäßige Wartung erhält Funktion, Sicherheit und Wert Ihres Produkts — und ist Voraussetzung dafür, dass kleine Verschleißerscheinungen nicht zu großen Schäden werden. Gerne übernehmen wir das für Sie: mit einem Wartungsvertrag erinnern wir Sie automatisch, prüfen und justieren Beschläge, Dichtungen und Oberflächen und dokumentieren die Arbeiten. Sprechen Sie uns einfach an."
+    }
+  ],
+  "konformitaet": {
+    "produktsicherheit": "Herstellerangaben, Produktidentifikation und Sicherheitsinformationen nach EU-Produktsicherheitsverordnung (EU) 2023/988 enthalten.",
+    "leistungserklaerungDoP": "Leistungserklärung Nr. DoP-2026-014 (Bauproduktenverordnung)",
+    "hinweis": "Bauelement im Anwendungsbereich der Bauproduktenverordnung — Leistungserklärung/CE-Kennzeichnung werden gesondert übergeben."
+  },
+  "nachhaltigkeit": {
+    "langlebigkeit": "Handwerkliche Einzelanfertigung, auf lange Nutzungsdauer ausgelegt; Pflege- und Wartungshinweise sind Bestandteil dieses Datensatzes.",
+    "reparierbarkeit": "Reparatur, Nacharbeit und Ersatzteile über den Herstellerbetrieb möglich (Kontakt siehe Hersteller).",
+    "umweltkennzahlen": null,
+    "hinweisUmweltkennzahlen": "Standardisierte Umweltkennzahlen (z. B. EPD/CO₂-Fußabdruck) liegen für handwerkliche Einzelanfertigungen noch nicht vor; die Anforderungen des delegierten Rechtsakts Möbel (erwartet 2028) stehen aus."
+  },
+  "dokument": {
+    "formate": [
+      "pdf",
+      "docx",
+      "json"
+    ],
+    "erzeugtMit": "ProduktPass — produktpass.meosapp.de"
+  }
+}

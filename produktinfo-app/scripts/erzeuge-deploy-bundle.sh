@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 # Baut die App und packt das VPS-Deploy-Bundle:
-#   produktpass-deploy.tar.gz  (dist/ + install.sh + nginx.conf)
+#   deploy/produktpass-deploy.tar.gz  (dist/ + install.sh + nginx.conf)
 #
 # Verwendung:  bash scripts/erzeuge-deploy-bundle.sh
-# Danach auf den VPS bringen und dort entpacken — siehe README „Deployment“.
+# Das Bundle wird mit committet; der Server zieht es per raw.githubusercontent.com
+# (Repo ist public) — siehe README „Deployment“.
 set -euo pipefail
 cd "$(dirname "$0")/.."
+BUNDLE="deploy/produktpass-deploy.tar.gz"
+RAW_URL="https://raw.githubusercontent.com/01MEwood/POS1overall/claude/carpenter-product-info-app-oo2cvl/produktinfo-app/${BUNDLE}"
 
 echo "▸ Baue Produktions-Build …"
 npm run build >/dev/null
@@ -16,11 +19,10 @@ mkdir -p "${STAGE}/produktpass"
 cp -r dist "${STAGE}/produktpass/"
 cp deploy/install.sh deploy/nginx.conf "${STAGE}/produktpass/"
 chmod +x "${STAGE}/produktpass/install.sh"
-tar -czf produktpass-deploy.tar.gz -C "$STAGE" produktpass
+tar -czf "$BUNDLE" -C "$STAGE" produktpass
 rm -rf "$STAGE"
 
-echo "✔ $(du -h produktpass-deploy.tar.gz | cut -f1) — produktpass-deploy.tar.gz"
+echo "✔ $(du -h "$BUNDLE" | cut -f1) — ${BUNDLE}"
 echo
-echo "Deploy (vom eigenen Rechner aus):"
-echo "  scp produktpass-deploy.tar.gz root@31.97.122.6:/opt/"
-echo "  ssh root@31.97.122.6 'cd /opt && tar xzf produktpass-deploy.tar.gz && cd produktpass && bash install.sh'"
+echo "Jetzt committen + pushen, dann in der Hostinger-Webkonsole (ein Befehl):"
+echo "  curl -fsSL ${RAW_URL} -o /tmp/pp.tar.gz && rm -rf /opt/produktpass/dist && tar -xzf /tmp/pp.tar.gz -C /opt && bash /opt/produktpass/install.sh"
