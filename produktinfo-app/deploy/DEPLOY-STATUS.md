@@ -1,10 +1,11 @@
 # Deploy-Status: produktpass.meosapp.de
 
-**Status: LIVE ✅** (v2 seit 30.08.2026 · v3 „DPP-ready“ bereit zum Einspielen, 14.09.2026)
+**Status: LIVE ✅ — v3 „DPP-ready“ seit 14.09.2026** (v2 seit 30.08.2026)
 
-- Bestätigt: 30.08.2026 — `install.sh`-Smoke-Test auf dem VPS meldet
-  `LIVE: https://produktpass.meosapp.de antwortet mit 200 ✔`
-- v3 (dieser Commit): QR-Code mit maschinenlesbarer Produktidentifikation auf PDF/Word-Deckblatt,
+- Bestätigt: 14.09.2026 — `install.sh` auf dem VPS meldet
+  `LIVE: https://produktpass.meosapp.de antwortet mit 200 ✔` (Bundle aus Commit 69e0970,
+  eingespielt per python3-Ein-Zeilen-Befehl in der Hostinger-Webkonsole)
+- v3: QR-Code mit maschinenlesbarer Produktidentifikation auf PDF/Word-Deckblatt,
   DPP-Kennung je Auftrag, Export „DPP-Datensatz (.json)“ nach ESPR/CPR-Inhaltskategorien
   (siehe `docs/dpp.md`)
 - Infrastruktur: Hostinger-VPS 31.97.122.6 (n8n-Template) · Container `produktpass`
