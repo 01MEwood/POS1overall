@@ -189,13 +189,31 @@ if docker exec "$APP" wget -q -O /dev/null http://127.0.0.1/; then
 else
   warn "Container antwortet nicht wie erwartet — Logs: docker logs ${APP}"
 fi
+# Live-Check mit dem, was auf dem Host da ist: curl → wget → python3
+CODE=""
 if command -v curl >/dev/null; then
   CODE=$(curl -sk -o /dev/null -w '%{http_code}' "https://${DOMAIN}" || true)
-  if [ "$CODE" = "200" ]; then
-    sag "LIVE: https://${DOMAIN} antwortet mit 200 ✔"
-  else
-    warn "https://${DOMAIN} antwortet mit '${CODE}'."
-    warn "Häufigste Ursache: DNS-A-Record '${APP}' → 31.97.122.6 fehlt noch oder ist nicht propagiert (5–15 Min)."
-  fi
+elif command -v wget >/dev/null; then
+  CODE=$(wget -q --no-check-certificate -S -O /dev/null "https://${DOMAIN}" 2>&1 | awk '/HTTP\//{c=$2} END{print c}')
+elif command -v python3 >/dev/null; then
+  CODE=$(python3 - "$DOMAIN" <<'PY' || true
+import ssl, sys, urllib.request
+ctx = ssl.create_default_context(); ctx.check_hostname = False; ctx.verify_mode = ssl.CERT_NONE
+try:
+    print(urllib.request.urlopen("https://" + sys.argv[1], context=ctx, timeout=15).status)
+except urllib.error.HTTPError as e:
+    print(e.code)
+except Exception:
+    print("000")
+PY
+)
+fi
+if [ "$CODE" = "200" ]; then
+  sag "LIVE: https://${DOMAIN} antwortet mit 200 ✔"
+elif [ -n "$CODE" ]; then
+  warn "https://${DOMAIN} antwortet mit '${CODE}'."
+  warn "Häufigste Ursache: DNS-A-Record '${APP}' → 31.97.122.6 fehlt noch oder ist nicht propagiert (5–15 Min)."
+else
+  warn "Kein curl/wget/python3 auf dem Host — Live-Check übersprungen. Im Browser prüfen: https://${DOMAIN}"
 fi
 sag "Fertig. Update später: neues Bundle entpacken und 'bash install.sh' erneut ausführen."

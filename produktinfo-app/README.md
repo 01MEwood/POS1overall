@@ -97,10 +97,11 @@ Einmalig: Im Hostinger-DNS-Panel für meosapp.de einen **A-Record `produktpass` 
 
 Das fertige Bundle liegt versioniert im Repo (`deploy/produktpass-deploy.tar.gz`, erzeugt mit
 `bash scripts/erzeuge-deploy-bundle.sh`). Update auf dem Server = **ein Befehl** in der
-Hostinger-Webkonsole (Repo ist public, kein Login nötig):
+Hostinger-Webkonsole (Repo ist public, kein Login nötig; Download per `python3`, weil auf dem
+VPS kein `curl` installiert ist — das abschließende `#` fängt Paste-Artefakte der Webkonsole ab):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/01MEwood/POS1overall/claude/carpenter-product-info-app-oo2cvl/produktinfo-app/deploy/produktpass-deploy.tar.gz -o /tmp/pp.tar.gz && rm -rf /opt/produktpass/dist && tar -xzf /tmp/pp.tar.gz -C /opt && bash /opt/produktpass/install.sh
+python3 -c "import urllib.request as u;u.urlretrieve('https://raw.githubusercontent.com/01MEwood/POS1overall/claude/carpenter-product-info-app-oo2cvl/produktinfo-app/deploy/produktpass-deploy.tar.gz','/tmp/pp.tar.gz')" && rm -rf /opt/produktpass/dist && tar -xzf /tmp/pp.tar.gz -C /opt && bash /opt/produktpass/install.sh #
 ```
 
 Alternativ klassisch per SSH:

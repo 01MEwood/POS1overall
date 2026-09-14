@@ -24,5 +24,5 @@ rm -rf "$STAGE"
 
 echo "✔ $(du -h "$BUNDLE" | cut -f1) — ${BUNDLE}"
 echo
-echo "Jetzt committen + pushen, dann in der Hostinger-Webkonsole (ein Befehl):"
-echo "  curl -fsSL ${RAW_URL} -o /tmp/pp.tar.gz && rm -rf /opt/produktpass/dist && tar -xzf /tmp/pp.tar.gz -C /opt && bash /opt/produktpass/install.sh"
+echo "Jetzt committen + pushen, dann in der Hostinger-Webkonsole (ein Befehl; python3 statt curl, das fehlt auf dem VPS):"
+echo "  python3 -c \"import urllib.request as u;u.urlretrieve('${RAW_URL}','/tmp/pp.tar.gz')\" && rm -rf /opt/produktpass/dist && tar -xzf /tmp/pp.tar.gz -C /opt && bash /opt/produktpass/install.sh #"

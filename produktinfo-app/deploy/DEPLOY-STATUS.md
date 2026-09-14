@@ -15,10 +15,11 @@
 ## Update einspielen (ein Befehl)
 
 Das Bundle `deploy/produktpass-deploy.tar.gz` liegt im Repo (public). In der
-Hostinger-Webkonsole (VPS → Webkonsole, als root):
+Hostinger-Webkonsole (VPS → Webkonsole, als root). Der VPS hat kein `curl` (Stand 14.09.2026),
+deshalb lädt `python3` herunter; das `#` am Ende fängt Paste-Artefakte der Webkonsole ab:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/01MEwood/POS1overall/claude/carpenter-product-info-app-oo2cvl/produktinfo-app/deploy/produktpass-deploy.tar.gz -o /tmp/pp.tar.gz && rm -rf /opt/produktpass/dist && tar -xzf /tmp/pp.tar.gz -C /opt && bash /opt/produktpass/install.sh
+python3 -c "import urllib.request as u;u.urlretrieve('https://raw.githubusercontent.com/01MEwood/POS1overall/claude/carpenter-product-info-app-oo2cvl/produktinfo-app/deploy/produktpass-deploy.tar.gz','/tmp/pp.tar.gz')" && rm -rf /opt/produktpass/dist && tar -xzf /tmp/pp.tar.gz -C /opt && bash /opt/produktpass/install.sh #
 ```
 
 Erwartete letzte Zeile: `LIVE: https://produktpass.meosapp.de antwortet mit 200 ✔`.
